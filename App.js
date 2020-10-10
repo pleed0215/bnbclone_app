@@ -6,6 +6,8 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 
+import Gate from "./Components/Gate";
+
 const cacheImages = (images) =>
   images.map((image) => {
     if (typeof image === "string") {
@@ -32,7 +34,7 @@ export default function App() {
     return Promise.all([...fontsPromise, ...imagesPromise]);
   };
   return ready ? (
-    <Text>Hello</Text>
+    <Gate />
   ) : (
     <AppLoading
       startAsync={loadAssets}

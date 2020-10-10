@@ -38,3 +38,16 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 ```
 
 - asset 로딩
+
+# 7 REDUX SETUP
+
+## 7.0 userSlice
+
+- Components/Gate.js 만듬.
+- 로그인 준비
+- redux toolkit 설치
+  ```sh
+    npm install @reduxjs/toolkit
+    npm install redux
+    npm install react-redux
+  ```

@@ -51,3 +51,13 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
     npm install redux
     npm install react-redux
   ```
+
+## redux-toolkit
+
+- createSlice 만들기
+- rootSlice에서 combineReducers로 rootSlice만들기
+- store 만들기
+- Provider로 store react와 연결하기.
+- Component에서 mapStateToProps, connect로 component 와 연결하기.
+  - mapStateToProps, connect와 관련해서 코드를 줄이는 방법으로는 react-redux 라이브러리의 useSelector를 이용하는 것.
+  - dispatch 사용 하려면 -> useDispatch

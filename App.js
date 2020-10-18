@@ -8,7 +8,9 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 
 import Gate from "./Components/Gate";
-import store from "./redux/store";
+import store, {persistor} from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+
 
 const cacheImages = (images) =>
   images.map((image) => {
@@ -35,9 +37,13 @@ export default function App() {
     const fontsPromise = cacheFonts(fonts);
     return Promise.all([...fontsPromise, ...imagesPromise]);
   };
+
+
   return ready ? (
     <Provider store={store}>
-      <Gate />
+      <PersistGate loading={null} persistor={persistor}>
+        <Gate />
+      </PersistGate>
     </Provider>
   ) : (
     <AppLoading
@@ -48,6 +54,20 @@ export default function App() {
       }}
     />
   );
+  /*return (
+    <Provider store={store}>
+      <PersistGate loading={<AppLoading
+      startAsync={loadAssets}
+      onError={console.error}
+      onFinish={() => {
+        setReady(true);
+      }}
+    />}
+      persistsor={persistor}>
+        <Gate />
+      </PersistGate>
+    </Provider>);*/
+  
 }
 
 const styles = StyleSheet.create({

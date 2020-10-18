@@ -8,7 +8,6 @@ import {login, logout } from "../redux/usersSlice";
 export default () => {
     const userSlice = useSelector(state => state.userReducer)
     const dispatch = useDispatch();
-    console.log(userSlice);
     const { isLoggedIn } = userSlice;
     return <View style={{justifyContent: "center", alignItems: "center", flex: 1}}>
         {isLoggedIn ? 

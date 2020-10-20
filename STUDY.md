@@ -136,5 +136,22 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
     - 위에 있는 순서대로 먼저 화면에 나타나는 것.
 
   - Navigator 렌더링을 Gate에서 해주면.
-    - 에러가 난다.
-    - Navigator는 NavigatorContainer로 wrapping 해야 한다.
+
+        - 에러가 난다.
+        - Navigator는 NavigatorContainer로 wrapping 해야 한다.
+
+        - Navigation 관련 props
+          - mode: "card", "modal" 형 있음.
+          - headerMode: "float", "screen" 글자만 이동? 혹은 화면 전체 이동?
+          - screenOptions: .. 문서 찾아보셈.
+            - 자주 사용하는 것.
+            - headerBackTitleVisible: true, false,
+
+    ![그림](screenshot.png)
+
+    - 중요한 props는 navigation
+
+      - navigation.navigate(screen name) 하면 스크린으로 이동함.
+
+    - Ionicons -> react vector icon, name, size, color
+    - Platform -> react native

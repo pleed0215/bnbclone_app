@@ -1,6 +1,14 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 
-export default () => <View style={{justifyContent: "center", alignItems: "center", display: "flex", flex: 1}}>
-    <Text>Welcome!</Text>
-</View>
+export default (props) => {
+    const {
+        navigation
+    } = props;
+    console.log(props);
+    return <View style={{justifyContent: "center", alignItems: "center", display: "flex", flex: 1}}>
+        <Text>Welcome!</Text>
+            <Button onPress = { ()=> navigation.navigate("SignIn") } title={"Sign In"} />
+            <Button onPress = { ()=> navigation.navigate("SignUp") } title={"Sign Up"} />
+        </View>
+}

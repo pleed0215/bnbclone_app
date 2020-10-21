@@ -155,3 +155,31 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
     - Ionicons -> react vector icon, name, size, color
     - Platform -> react native
+
+## 8.2 component를 만들 때
+- 니코는 파일을 만드는 것보다, 폴더를 만들어서 만드는 것을 선호함.
+  
+### Back button component
+1. styled component install
+   - styled component import 할 때 "styled-components/native"로 임포트 할 것.
+2. Image 컴포터넌트를 사용하였는데, pre loading한 이미지에서 가져오는 코드를 익혀놔야 할듯..
+     ```js
+       <Image source={require("../assets/login_splash.jpg")}/>
+       <Image source={{uri: LOGO_URL}}/>
+     ```
+       - required 사용함.
+       - resizeMethod로 이미지 크기를 조절할 수 있다. 근데 styled에서 조절하면 안되나??
+         - 안됨. 없는 style옵션이라고 에러 나온다.
+         - ?? 근데 resizeMethod 사용했는데도 이미지 크기 조절이 잘 안됨.
+       - url을 이용하여 이미지를 불러올 때에는 아래와 같이..
+         - 위와 같이 그냥 불러오면 이미지가 표시가 안되는데 그 이유는 online상의 image를 불러올 때에는 width, height를 설정을 해줘야 한다. 
+3. ugly한 위 title을 고쳐보자.
+   - Navigator의 Screen component에 options를 줄 수 있다. headerTitleStyle에서 변경할 수 있음.
+4. status bar를 바꿔보자.
+  - <StatusBar> react-native component를 이용하면 된다.
+    - 강의에서는 barStyle이라 하였는데, source를 찾아 보니 style light, dark 등으로 있다.
+5. Image Blur처리
+   - expo 문서에서 찾아 보네.
+   - expo-blur의 BlurView 컴퍼넌트임.
+   - expo install 해줘야 하는 것. 
+   - intensity, tint 옵션 등이 있음. 자세한 건 문서 확인.

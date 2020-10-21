@@ -11,11 +11,15 @@ export default () => {
     const userSlice = useSelector(state => state.userReducer)
     const dispatch = useDispatch();
     const { isLoggedIn } = userSlice;
+    
     return <NavigationContainer>
         {isLoggedIn ? 
-            <TouchableOpacity onPress={()=>dispatch(logout())}>
-                <Text>Log out</Text>
-            </TouchableOpacity>:<Auth /> 
+            <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
+                <TouchableOpacity onPress={()=>dispatch(logout())}>
+                    <Text>Log out??</Text>
+                </TouchableOpacity>
+                </View>:<Auth /> 
+            
             /*<TouchableOpacity onPress={()=>dispatch(login({token: "token"}))}>
                 <Text>Log in</Text>
             </TouchableOpacity>*/

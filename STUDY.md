@@ -206,4 +206,12 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
    - value change 관련해서 react hook과 연결 시키는 것.. 
    - 사용 props, onChangeText
    - 적을 내용이 없다 그냥 코드를 보자.
-3. 
+## 8.5 Keyboard avoiding view
+1. Keyboard avoiding view
+   >>> It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard. It can automatically adjust either its height, position, or bottom padding based on the keyboard height.
+  - 뭔 말인지 잘 이해는 안간다.
+  - 으으 설명을 들어도 잘 모르겠다.아무튼 virtual keyboard 때문임.
+
+## 8.6
+  
+   

@@ -212,6 +212,6 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
   - 뭔 말인지 잘 이해는 안간다.
   - 으으 설명을 들어도 잘 모르겠다.아무튼 virtual keyboard 때문임.
 
-## 8.6
+## 8.6 apiClient
   
    

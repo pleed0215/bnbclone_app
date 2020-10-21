@@ -191,4 +191,19 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
      - screen 정보를 얻을 수 있는 듯함.
      - Dimensions.get("screen"). width height 를 얻어냄.
 2. 일관된 컬러를 위해 color.js를 만들어 주는게 좋다함.
+  
+## 8.4 Sign in part one
+1. Log in screen은 복잡하면 안된다고 생각한다면서 pinterest.com가서 샘플 골라서 만들자 함.
+2. TextInput
+   ```js
+        <Container>
+          <TextInput value={username} autoCapitalize="none" placeholder="Username" onChangeText={text=>setUsername(text)}></TextInput>
+          <TextInput value={password} placeholder="Password" onChangeText={text=>setPassword(text)} secureTextEntry></TextInput>
+          <AuthButton text={"Sing In"} accent onPress={handleSubmit}></AuthButton>
+        </Container>
+   ```
+   - input type=text와 유사.
+   - value change 관련해서 react hook과 연결 시키는 것.. 
+   - 사용 props, onChangeText
+   - 적을 내용이 없다 그냥 코드를 보자.
 3. 

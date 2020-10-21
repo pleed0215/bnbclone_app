@@ -7,16 +7,18 @@ import ThemeColor from "../../color";
 const { width, height } = Dimensions.get("screen");
 
 const Button = styled.View`
-    width: ${width / 2}px;
+    width: ${width / 1.5}px;
     background-color: ${props=>props.accent ? ThemeColor.red : "transparent"};
-    padding: 15px 0px;
+    padding: 10px 0px;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 30px;
     border: 1px solid ${props => props.accent?"transparent": ThemeColor.black};
     margin: 5px;
 `;
 const Text = styled.Text`
-    color: ${ props => props.accent?"white":"black"}
+    color: ${ props => props.accent?"white":"black"};
+    font-weight: 600;
+    font-size: 16px;
 `;
 
 const AuthButton = ({onPress, text, accent = false}) => <TouchableOpacity onPress={onPress}>

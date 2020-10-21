@@ -1,9 +1,9 @@
 import React from "react";
 import { createStackNavigator} from "@react-navigation/stack";
 
-import Welcome from "../screens/Welcome";
-import SignIn from "../screens/SignIn";
-import SignUp from "../screens/SignUp";
+import Welcome from "../screens/Auth/Welcome";
+import SignIn from "../screens/Auth/SignIn";
+import SignUp from "../screens/Auth/SignUp";
 
 import BackBtn from "../Components/Auth/BackBtn";
 
@@ -25,6 +25,6 @@ export default () => <Auth.Navigator
                             }
                         }>
     <Auth.Screen name="Welcome!" component={Welcome} />
-    <Auth.Screen name="SignIn" component={SignIn} />
-    <Auth.Screen name="SignUp" component={SignUp} />
+    <Auth.Screen name="SignIn" component={SignIn} options={{title: "Sign in"}}/>
+    <Auth.Screen name="SignUp" component={SignUp} options={{title: "Sign up"}}/>
 </Auth.Navigator>

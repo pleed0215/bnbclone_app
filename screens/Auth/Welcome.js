@@ -5,7 +5,7 @@ import { View, Text, Button } from "react-native";
 
 import styled from "styled-components/native";
 
-import AuthButton from "../Components/Auth/Btn";
+import AuthButton from "../../Components/Auth/Btn";
 
 const LOGO_URL = "https://maybugs.com/news/photo/201808/625096_485796_2158.png";
 
@@ -42,13 +42,13 @@ export default (props) => {
     return <Container>
                 <StatusBar style="auto"/>
                 <BlurView tint="light" intensity={50} style={{flex:1, width: "100%", alignItems: "center", justifyContent: "center"}}>
-                    <Logo source={require("../assets/logo.png")}/>
+                    <Logo source={require("../../assets/logo.png")}/>
                     <ButtonContainer>
                         <AuthButton onPress={goToSignUp} text="Sign Up" accent={true}/>
                         <AuthButton onPress={goToSignIn} text="Sign In" accent={false} />
                     </ButtonContainer>
                 </BlurView>
-                <Image resizeMethod="resize" source={require("../assets/lolo.jpg")}/>
+                <Image resizeMethod="resize" source={require("../../assets/lolo.jpg")}/>
         </Container>
 }
 

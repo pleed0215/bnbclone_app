@@ -183,3 +183,12 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
    - expo-blur의 BlurView 컴퍼넌트임.
    - expo install 해줘야 하는 것. 
    - intensity, tint 옵션 등이 있음. 자세한 건 문서 확인.
+
+## 8.3 Button component 만들기
+1. Auth folder에서 Button을 만듬.
+   - 내용 별 무.
+   - Dimensions가 갑자기 튀어나옴.
+     - screen 정보를 얻을 수 있는 듯함.
+     - Dimensions.get("screen"). width height 를 얻어냄.
+2. 일관된 컬러를 위해 color.js를 만들어 주는게 좋다함.
+3. 

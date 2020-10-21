@@ -20,7 +20,7 @@ export default () => <Auth.Navigator
                                     <BackBtn/>
                                 ),
                                 headerTitleStyle: {
-                                    color: "white"
+                                    color: "gray"
                                 }
                             }
                         }>

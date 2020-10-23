@@ -214,4 +214,28 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
 ## 8.6 apiClient
   
-   
+   ```js
+   const callApi = async (method, path, data, jwt) => {
+    const headers = {
+        Authorization: jwt,
+        "Content-Type": "application/json"
+    }
+  }
+  ```
+  이런 식으로 일종의 wrapper를 만든다.
+
+## 8.7 create account
+1. username을 email로 변경하였는데, input에서 keyboard appearance 바꾸는 파트가 있다.
+  - keyboardType = {"email-address"}
+2. Email 검증
+   - email regex 이용, google에서 검색해서 사용하자.
+   - utils.js 파일을 또 만드네..
+   ```js
+   export const isEmail = (email) => {
+    const regEx = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+    return regEx.test(email);
+  }
+   ```
+  - 정규식을 이렇게 사용해 볼 수 있구나.
+3. axios return value에서 status 속성으로 결과를 알 수 있음.
+4. 

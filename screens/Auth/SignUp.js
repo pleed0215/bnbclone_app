@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import AuthButton from "../../Components/Auth/Btn";
 import Input from "../../Components/Auth/Input";
 
-import { createAccount } from "../../api";
+import api from "../../api";
 import { isEmail } from "../../utils";
 
 const Container = styled.View`
@@ -42,7 +42,7 @@ export default ({ navigation }) => {
     }
 
     try {
-      const data = await createAccount({
+      const data = await api.createAccount({
         first_name: firstName,
         last_name: lastName,
         email: email,

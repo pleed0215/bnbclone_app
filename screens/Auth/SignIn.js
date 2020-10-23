@@ -1,9 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { View, Text, KeyboardAvoidingView } from "react-native";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import AuthButton from "../../Components/Auth/Btn";
 import Input from "../../Components/Auth/Input";
+
+import { apiLogin } from "../../redux/usersSlice";
+import { isEmail } from "../../utils";
 
 const Container = styled.View`
   align-items: center;
@@ -17,10 +21,28 @@ const InputContainer = styled.View`
 export default ({ route: { params } }) => {
   const [email, setEmail] = useState(params?.email);
   const [password, setPassword] = useState(params?.password);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
-    alert(`${email}, ${password}`);
+    setLoading(true);
+    if (!isFormValid()) return;
+    dispatch(apiLogin({ username: email, password }));
+    setLoading(false);
   };
+
+  const isFormValid = () => {
+    if (email === "" || password === "") {
+      alert("all field are required.");
+      return false;
+    }
+    if (!isEmail(email)) {
+      alert("Email address you put is invalid.");
+      return false;
+    }
+    return true;
+  };
+
   return (
     <Container>
       <StatusBar style="dark" />
@@ -40,7 +62,12 @@ export default ({ route: { params } }) => {
           ></Input>
         </InputContainer>
       </KeyboardAvoidingView>
-      <AuthButton text={"Sing In"} accent onPress={handleSubmit}></AuthButton>
+      <AuthButton
+        loading={loading}
+        text={"Sing In"}
+        accent
+        onPress={handleSubmit}
+      ></AuthButton>
     </Container>
   );
 };

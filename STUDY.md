@@ -157,92 +157,125 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
     - Platform -> react native
 
 ## 8.2 component를 만들 때
+
 - 니코는 파일을 만드는 것보다, 폴더를 만들어서 만드는 것을 선호함.
-  
+
 ### Back button component
+
 1. styled component install
    - styled component import 할 때 "styled-components/native"로 임포트 할 것.
 2. Image 컴포터넌트를 사용하였는데, pre loading한 이미지에서 가져오는 코드를 익혀놔야 할듯..
-     ```js
-       <Image source={require("../assets/login_splash.jpg")}/>
-       <Image source={{uri: LOGO_URL}}/>
-     ```
-       - required 사용함.
-       - resizeMethod로 이미지 크기를 조절할 수 있다. 근데 styled에서 조절하면 안되나??
-         - 안됨. 없는 style옵션이라고 에러 나온다.
-         - ?? 근데 resizeMethod 사용했는데도 이미지 크기 조절이 잘 안됨.
-       - url을 이용하여 이미지를 불러올 때에는 아래와 같이..
-         - 위와 같이 그냥 불러오면 이미지가 표시가 안되는데 그 이유는 online상의 image를 불러올 때에는 width, height를 설정을 해줘야 한다. 
+   ```js
+     <Image source={require("../assets/login_splash.jpg")}/>
+     <Image source={{uri: LOGO_URL}}/>
+   ```
+   - required 사용함.
+   - resizeMethod로 이미지 크기를 조절할 수 있다. 근데 styled에서 조절하면 안되나??
+     - 안됨. 없는 style옵션이라고 에러 나온다.
+     - ?? 근데 resizeMethod 사용했는데도 이미지 크기 조절이 잘 안됨.
+   - url을 이용하여 이미지를 불러올 때에는 아래와 같이..
+     - 위와 같이 그냥 불러오면 이미지가 표시가 안되는데 그 이유는 online상의 image를 불러올 때에는 width, height를 설정을 해줘야 한다.
 3. ugly한 위 title을 고쳐보자.
    - Navigator의 Screen component에 options를 줄 수 있다. headerTitleStyle에서 변경할 수 있음.
 4. status bar를 바꿔보자.
-  - <StatusBar> react-native component를 이용하면 된다.
-    - 강의에서는 barStyle이라 하였는데, source를 찾아 보니 style light, dark 등으로 있다.
+
+- <StatusBar> react-native component를 이용하면 된다.
+  - 강의에서는 barStyle이라 하였는데, source를 찾아 보니 style light, dark 등으로 있다.
+
 5. Image Blur처리
    - expo 문서에서 찾아 보네.
    - expo-blur의 BlurView 컴퍼넌트임.
-   - expo install 해줘야 하는 것. 
+   - expo install 해줘야 하는 것.
    - intensity, tint 옵션 등이 있음. 자세한 건 문서 확인.
 
 ## 8.3 Button component 만들기
+
 1. Auth folder에서 Button을 만듬.
    - 내용 별 무.
    - Dimensions가 갑자기 튀어나옴.
      - screen 정보를 얻을 수 있는 듯함.
      - Dimensions.get("screen"). width height 를 얻어냄.
 2. 일관된 컬러를 위해 color.js를 만들어 주는게 좋다함.
-  
+
 ## 8.4 Sign in part one
+
 1. Log in screen은 복잡하면 안된다고 생각한다면서 pinterest.com가서 샘플 골라서 만들자 함.
 2. TextInput
    ```js
-        <Container>
-          <TextInput value={username} autoCapitalize="none" placeholder="Username" onChangeText={text=>setUsername(text)}></TextInput>
-          <TextInput value={password} placeholder="Password" onChangeText={text=>setPassword(text)} secureTextEntry></TextInput>
-          <AuthButton text={"Sing In"} accent onPress={handleSubmit}></AuthButton>
-        </Container>
+   <Container>
+     <TextInput
+       value={username}
+       autoCapitalize="none"
+       placeholder="Username"
+       onChangeText={(text) => setUsername(text)}
+     ></TextInput>
+     <TextInput
+       value={password}
+       placeholder="Password"
+       onChangeText={(text) => setPassword(text)}
+       secureTextEntry
+     ></TextInput>
+     <AuthButton text={"Sing In"} accent onPress={handleSubmit}></AuthButton>
+   </Container>
    ```
    - input type=text와 유사.
-   - value change 관련해서 react hook과 연결 시키는 것.. 
+   - value change 관련해서 react hook과 연결 시키는 것..
    - 사용 props, onChangeText
    - 적을 내용이 없다 그냥 코드를 보자.
+
 ## 8.5 Keyboard avoiding view
+
 1. Keyboard avoiding view
-   >>> It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard. It can automatically adjust either its height, position, or bottom padding based on the keyboard height.
-  - 뭔 말인지 잘 이해는 안간다.
-  - 으으 설명을 들어도 잘 모르겠다.아무튼 virtual keyboard 때문임.
+   > > > It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard. It can automatically adjust either its height, position, or bottom padding based on the keyboard height.
+
+- 뭔 말인지 잘 이해는 안간다.
+- 으으 설명을 들어도 잘 모르겠다.아무튼 virtual keyboard 때문임.
 
 ## 8.6 apiClient
-  
-   ```js
-   const callApi = async (method, path, data, jwt) => {
-    const headers = {
-        Authorization: jwt,
-        "Content-Type": "application/json"
-    }
-  }
-  ```
-  이런 식으로 일종의 wrapper를 만든다.
+
+```js
+const callApi = async (method, path, data, jwt) => {
+  const headers = {
+    Authorization: jwt,
+    "Content-Type": "application/json",
+  };
+};
+```
+
+이런 식으로 일종의 wrapper를 만든다.
 
 ## 8.7 create account
+
 1. username을 email로 변경하였는데, input에서 keyboard appearance 바꾸는 파트가 있다.
-  - keyboardType = {"email-address"}
+
+- keyboardType = {"email-address"}
+
 2. Email 검증
    - email regex 이용, google에서 검색해서 사용하자.
    - utils.js 파일을 또 만드네..
    ```js
    export const isEmail = (email) => {
-    const regEx = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-    return regEx.test(email);
-  }
+     const regEx = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+     return regEx.test(email);
+   };
    ```
-  - 정규식을 이렇게 사용해 볼 수 있구나.
+
+- 정규식을 이렇게 사용해 볼 수 있구나.
+
 3. axios return value에서 status 속성으로 결과를 알 수 있음.
 4. 생성 후 로그인 화면으로 redirect
 5. ActivityIndicator: loading 등에 사용하면 괜찮다.
+
 ```js
-{loading ? <ActivityIndicator color={accent?"white":"black"}/> :<Text accent={accent}>{text}</Text>}
+{
+  loading ? (
+    <ActivityIndicator color={accent ? "white" : "black"} />
+  ) : (
+    <Text accent={accent}>{text}</Text>
+  );
+}
 ```
+
 6. TextInput에서 자꾸 strong password 관련해서 문제가 있었는데..
    - Input 옵션에 blurOnSubmit 하니 나오지 않는다. 이 옵션은 submit시 input을 blur시키는 것..
 7. Navigator Screen component에는 navigation props이 딸려 온다.
@@ -250,3 +283,25 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
    - information도 전달할 수 있다고 한다.
      - navigate(to, params)
      - console.log 해 보면, props.route.params에 들어가 있다.
+
+## 8.10 Login part
+
+1. currying
+
+- 새로운 syntax, 함수를 반환해주는 역할
+
+```js
+export const userLogin = (form) => async (dispatch) => {};
+function userLogin(forms) {
+  return function (dispatch) {
+
+  }
+}
+}
+userLogin(form)(dispatch);
+excutedWithForm(dispatch);
+connect(map, map) (component)
+```
+
+- userLogin(form)을 호출하면 함수가 반환이 된다.
+- 밑에 있는 거과 같은 역할을 하는 것. 밑에 같은 과정으로 호출된..

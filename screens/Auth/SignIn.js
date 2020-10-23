@@ -7,7 +7,7 @@ import AuthButton from "../../Components/Auth/Btn";
 import Input from "../../Components/Auth/Input";
 
 import { apiLogin } from "../../redux/usersSlice";
-import { isEmail } from "../../utils";
+import utils from "../../utils";
 
 const Container = styled.View`
   align-items: center;
@@ -28,6 +28,7 @@ export default ({ route: { params } }) => {
     setLoading(true);
     if (!isFormValid()) return;
     dispatch(apiLogin({ username: email, password }));
+
     setLoading(false);
   };
 
@@ -36,7 +37,7 @@ export default ({ route: { params } }) => {
       alert("all field are required.");
       return false;
     }
-    if (!isEmail(email)) {
+    if (!utils.isEmail(email)) {
       alert("Email address you put is invalid.");
       return false;
     }

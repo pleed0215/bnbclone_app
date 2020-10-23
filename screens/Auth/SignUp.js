@@ -6,7 +6,7 @@ import AuthButton from "../../Components/Auth/Btn";
 import Input from "../../Components/Auth/Input";
 
 import api from "../../api";
-import { isEmail } from "../../utils";
+import utils from "../../utils";
 
 const Container = styled.View`
   align-items: center;
@@ -26,7 +26,7 @@ export default ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const handleSubmit = async () => {
     setLoading(true);
-    if (!isEmail(email)) {
+    if (!utils.isEmail(email)) {
       alert("Not correct email address.");
       return;
     }

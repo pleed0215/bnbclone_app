@@ -1,31 +1,29 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import {connect, useDispatch, useSelector} from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import Auth from "../navigation/Auth";
+import Main from "../navigation/Main";
 
-import {login, logout } from "../redux/usersSlice";
-
+import { login, logout } from "../redux/usersSlice";
 
 export default () => {
-    const userSlice = useSelector(state => state.userReducer)
-    const dispatch = useDispatch();
-    const { isLoggedIn } = userSlice;
-    
-    return <NavigationContainer>
-        {isLoggedIn ? 
-            <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
-                <TouchableOpacity onPress={()=>dispatch(logout())}>
-                    <Text>Log out??</Text>
-                </TouchableOpacity>
-                </View>:<Auth /> 
-            
-            /*<TouchableOpacity onPress={()=>dispatch(login({token: "token"}))}>
+  const userSlice = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const { isLoggedIn } = userSlice;
+
+  return (
+    <NavigationContainer>
+      {
+        isLoggedIn ? <Main /> : <Auth />
+
+        /*<TouchableOpacity onPress={()=>dispatch(login({token: "token"}))}>
                 <Text>Log in</Text>
             </TouchableOpacity>*/
-            }
+      }
     </NavigationContainer>
-}
+  );
+};
 
 /*const Gate = (props) => {
     console.log('props');

@@ -305,3 +305,30 @@ connect(map, map) (component)
 
 - userLogin(form)을 호출하면 함수가 반환이 된다.
 - 밑에 있는 거과 같은 역할을 하는 것. 밑에 같은 과정으로 호출된..
+
+# 9. Explore
+
+## 9.0 Main navigator
+
+1. Screen 먼저 만들기
+
+- Main folder
+  - Explorer, Map, Profile, Saved 만들 예정.
+
+2. Navigator 만들기
+
+- react navigation/bottom tabs 이용
+- 공식 문서 확인
+- bottom tabs navigation styling
+  - tabBarOptions
+    - activeTintColor,
+    - labelStyle, textTransform,
+    - fontWeight,
+    - tabStyle, padding
+  - screenOptions
+    - screenOptions는 오브젝트를 함수로 리턴해야 한다.
+    - routes
+    - tabBarIcon
+  - icon name 규칙이 android는 앞에 md-로 시작하고, ios는 ios-로 시작한다.
+  - 왜 유틸을 중간부터 바꾸는거야..
+  - 코드와 문서를 확인하자. 일일히 적을 수가 없을 듯하다.

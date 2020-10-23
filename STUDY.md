@@ -238,4 +238,15 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
    ```
   - 정규식을 이렇게 사용해 볼 수 있구나.
 3. axios return value에서 status 속성으로 결과를 알 수 있음.
-4. 
+4. 생성 후 로그인 화면으로 redirect
+5. ActivityIndicator: loading 등에 사용하면 괜찮다.
+```js
+{loading ? <ActivityIndicator color={accent?"white":"black"}/> :<Text accent={accent}>{text}</Text>}
+```
+6. TextInput에서 자꾸 strong password 관련해서 문제가 있었는데..
+   - Input 옵션에 blurOnSubmit 하니 나오지 않는다. 이 옵션은 submit시 input을 blur시키는 것..
+7. Navigator Screen component에는 navigation props이 딸려 온다.
+   - Sign up 한 후 Sing in 으로 redirect하는 작업들을 할 수 있는 것.
+   - information도 전달할 수 있다고 한다.
+     - navigate(to, params)
+     - console.log 해 보면, props.route.params에 들어가 있다.

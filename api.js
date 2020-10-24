@@ -41,5 +41,5 @@ export const userLogin = (form) => callApi("post", USERS_ROUTES.login, form);
 export default {
   createAccount: (form) => callApi("post", USERS_ROUTES.users, form),
   userLogin: (form) => callApi("post", USERS_ROUTES.login, form),
-  rooms: (page) => callApi("get", ROOMS_ROUTE.rooms(page)),
+  rooms: (page = 1) => callApi("get", ROOMS_ROUTE.rooms(page)),
 };

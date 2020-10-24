@@ -51,9 +51,9 @@ const SignInPresenter = ({
 );
 
 SignInPresenter.propTypes = {
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
   setEmail: PropTypes.func.isRequired,
-  password: PropTypes.string.isRequired,
+  password: PropTypes.string,
   setPassword: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,

@@ -340,3 +340,15 @@ connect(map, map) (component)
 - 새로운 슬라이스 만드어서 action 및 data 구조 추가.
 
 2. Container, Presenter 구조로 screen 다시 만들기. 나중에 정리 힘들어 지기 전에.
+
+# 9.3
+
+1. mapDispatchToProps(dispatch)
+   - Container에서 dispatch 사용하는 것이 싫다면서... index.js에서 연결해줌.
+2. mapStateToProps(state) 도 연결해줌
+3. roomsSlice에서 getRooms만들어줌.
+4. 코드를 이해를 못하게 만드는 중인데... setExplorerRooms에 매번 업데이트 때마다 방을 추가를 하는데,
+
+- 그 방이 있는지 없는지 확인을 해서 추가를 한다?
+- 그럼 state에 page는 왜 넣은거지...???? 아유 퍼킹 키딩미?
+-

@@ -332,3 +332,11 @@ connect(map, map) (component)
   - icon name 규칙이 android는 앞에 md-로 시작하고, ios는 ios-로 시작한다.
   - 왜 유틸을 중간부터 바꾸는거야..
   - 코드와 문서를 확인하자. 일일히 적을 수가 없을 듯하다.
+
+# 9.2 Room slice and clean up
+
+1. roomsSlice
+
+- 새로운 슬라이스 만드어서 action 및 data 구조 추가.
+
+2. Container, Presenter 구조로 screen 다시 만들기. 나중에 정리 힘들어 지기 전에.

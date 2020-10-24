@@ -15,7 +15,7 @@ const USERS_ROUTES = {
 };
 
 const ROOMS_ROUTE = {
-  rooms: "rooms/",
+  rooms: (page = 1) => `rooms/?page=${page}`,
   create: "rooms/create",
   search: "rooms/search",
 };
@@ -41,4 +41,5 @@ export const userLogin = (form) => callApi("post", USERS_ROUTES.login, form);
 export default {
   createAccount: (form) => callApi("post", USERS_ROUTES.users, form),
   userLogin: (form) => callApi("post", USERS_ROUTES.login, form),
+  rooms: (page) => callApi("get", ROOMS_ROUTE.rooms(page)),
 };

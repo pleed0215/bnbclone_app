@@ -1,4 +1,5 @@
-import { combineReducers} from "redux";
-import userReducer from "./usersSlice";
+import { combineReducers } from "redux";
+import usersReducer from "./usersSlice";
+import roomsReducer from "./roomSlice";
 
-export default combineReducers( { userReducer });
+export default combineReducers({ usersReducer, roomsReducer });

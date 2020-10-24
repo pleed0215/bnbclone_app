@@ -8,8 +8,9 @@ import Main from "../navigation/Main";
 import { login, logout } from "../redux/usersSlice";
 
 export default () => {
-  const userSlice = useSelector((state) => state.userReducer);
+  const userSlice = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();
+
   const { isLoggedIn } = userSlice;
 
   return (

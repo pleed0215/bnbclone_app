@@ -47,7 +47,7 @@ export default ({ rooms }) => (
           {rooms.map((room) => (
             <RoomCard
               {...room}
-              isFav={room.in_favorite}
+              isFav={room.in_favorite?true:false}
               isSuperHost={room.user.superhost}
               key={room.id}
             />

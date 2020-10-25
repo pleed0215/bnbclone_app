@@ -398,3 +398,5 @@ connect(map, map) (component)
 1. pillow
 
 - 나는 잘되는데 webp를 jpg, jpeg로 변환해야 한다고 하면서... DRF로 가서 pillow를 이용하여 jpg로 변환한다.
+
+2. NAS에 api 서버를 돌릴 수 있게 되었다. debug 모드로.

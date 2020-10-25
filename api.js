@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const URL = "http://127.0.0.1:8000/";
+//const URL = "http://127.0.0.1:8000/";
+const URL = "http://222.104.218.3:8000/";
 const API_VERSION_ROUTE = "api/v1/";
 
 const USERS_ROUTES = {

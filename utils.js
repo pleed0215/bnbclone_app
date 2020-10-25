@@ -6,4 +6,5 @@ export default {
     return regEx.test(email);
   },
   isAndroid: () => Platform.OS === "android",
+  defaultImage: require("./assets/default.jpg"),
 };

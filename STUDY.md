@@ -351,4 +351,50 @@ connect(map, map) (component)
 
 - 그 방이 있는지 없는지 확인을 해서 추가를 한다?
 - 그럼 state에 page는 왜 넣은거지...???? 아유 퍼킹 키딩미?
--
+- scroll 문제 때문에 니코 코드로 가야할 것 같다.
+
+# 9.5
+
+1. react 다루면서 이런게 잘 이해가 안갔다.
+
+```js
+{
+  rooms.length === 0 ? <ActivityIndicator color="black" /> : <Text>Hello</Text>;
+}
+```
+
+- 그냥 외아 놓자.
+- ActiviIndicator 넣음으로서 로딩화면 표시하는 방법도 알아 놓자.
+
+2. RoomCard Component
+
+- Data 넘겨주면서 proptype 만드는 부분 괜찮음.
+- DRF에서 photo serializer를 만들지 않아서 없었던 것 같았는데, 갑자기 생겨서 만들어 놓음.
+- \<ScrollView\> Component
+  - Scroll 가능하게 해주는 View
+  - contentContainerStyle
+    - paddingHorizontal
+
+# 9.7 Photo slider
+
+1. Dimension으로 width, height 불러와서 component size를 정함.
+2. 갑자기 ScrollView의 scroll indicator가 보기 싫다면서 없앰.
+   - ScrollView showsVerticalScrollIndicator property.
+3. Image resizeMode
+
+- 나는 styled component에 resize-mode: cover; 라고 적었는데
+- 니콜라스는 Image resizeMode="contain" 이런식으로 적음.
+
+4. Image Swiper
+
+- 여러 이미지를 swipe할 수 있는 컴퍼넌트인 듯..
+- > > > npm i --save react-native-swiper
+- > > > npm i --save react-native-swiper@nightly
+
+```js
+  <Swper autoplay pagenationStyle={{ }} activeDotColor={"white"} dotColor={"grey"}>
+```
+
+1. pillow
+
+- 나는 잘되는데 webp를 jpg, jpeg로 변환해야 한다고 하면서... DRF로 가서 pillow를 이용하여 jpg로 변환한다.

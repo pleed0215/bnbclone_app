@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import utils from "../utils";
 import Swiper from "react-native-web-swiper";
+import { Ionicons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("screen");
 
 import ThemeColor from "../color";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useDispatch } from "react-redux";
+import { toggleFavs } from "../redux/usersSlice";
 
 const DefaultImage = styled.Image`
   width: 100%;
@@ -59,45 +63,83 @@ const PhotosContainer = styled.View`
   margin-bottom: 25px;
   overflow: hidden;
   border-radius: 20px;
+  position: relative;
+  z-index: 0;
 `;
 
-const RoomCard = ({ id, isFav, isSuperHost, photos, name, rating, price }) => (
-  <Container>
-    <PhotosContainer>
-      {photos.length === 0 ? (
-        <DefaultImage source={utils.defaultImage} />
-      ) : (
-        <Swiper
-          timeout={2}
-          loop
-          from={1}
-          sprintConfig={{ speed: 11 }}
-          controlsProps={{
-            PrevComponent: () => null,
-            NextComponent: () => null,
-            dotActiveStyle: {
-              backgroundColor: "white",
-            },
-          }}
-        >
-          {photos.map((photo) => (
-            <SlideImage key={photo.caption} source={{ uri: photo.file }} />
-          ))}
-        </Swiper>
+const FavButton = styled.View`
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  padding: 5px;
+  width: 35px;
+  height: 35px;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  border: 2px gray solid;
+`;
+
+const RoomCard = ({ id, isFav, isSuperHost, photos, name, rating, price }) => {
+  const [fav, setFav] = useState(isFav);
+  const iconPrefix = utils.isAndroid() ? "md-" : "ios-";
+  const iconName = fav ? iconPrefix + "heart" : iconPrefix + "heart-empty";
+  const dispatch = useDispatch();
+  return (
+    <Container>
+      <PhotosContainer>
+        <FavButton>
+          <TouchableOpacity
+            onPress={() => {
+              setFav(!fav);
+              dispatch(toggleFavs(id));
+            }}
+          >
+            <Ionicons
+              size={20}
+              color={fav ? ThemeColor.red : "black"}
+              name={iconName}
+            />
+          </TouchableOpacity>
+        </FavButton>
+
+        {photos.length === 0 ? (
+          <DefaultImage source={utils.defaultImage} />
+        ) : (
+          <Swiper
+            timeout={2}
+            loop
+            from={1}
+            sprintConfig={{ speed: 11 }}
+            controlsProps={{
+              PrevComponent: () => null,
+              NextComponent: () => null,
+              dotActiveStyle: {
+                backgroundColor: "white",
+              },
+            }}
+          >
+            {photos.map((photo) => (
+              <SlideImage key={photo.caption} source={{ uri: photo.file }} />
+            ))}
+          </Swiper>
+        )}
+      </PhotosContainer>
+      {isSuperHost && (
+        <SuperHost>
+          <SuperHostText>Superhost</SuperHostText>
+        </SuperHost>
       )}
-    </PhotosContainer>
-    {isSuperHost && (
-      <SuperHost>
-        <SuperHostText>Superhost</SuperHostText>
-      </SuperHost>
-    )}
-    <Name>{name}</Name>
-    <PriceContainer>
-      <PriceNumber>${price}</PriceNumber>
-      <Price> / night</Price>
-    </PriceContainer>
-  </Container>
-);
+      <Name>{name}</Name>
+      <PriceContainer>
+        <PriceNumber>${price}</PriceNumber>
+        <Price> / night</Price>
+      </PriceContainer>
+    </Container>
+  );
+};
 
 RoomCard.propTypes = {
   id: PropTypes.number.isRequired,

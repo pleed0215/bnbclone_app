@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 
 import Presenter from "./Presenter";
 
-export default ({ getFavs }) => {
+export default ({ getFavs, favs }) => {
   useEffect(() => {
     getFavs();
   }, []);
-  return <Presenter />;
+  console.log(favs);
+  return <Presenter favs={favs} />;
 };

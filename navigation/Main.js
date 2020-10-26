@@ -50,8 +50,8 @@ export default () => (
     })}
   >
     <Main.Screen name="Explorer" component={Explorer} />
+    <Main.Screen name="Saved" component={Saved} />
     <Main.Screen name="Map" component={MapScreen} />
     <Main.Screen name="Profile" component={Profile} />
-    <Main.Screen name="Saved" component={Saved} />
   </Main.Navigator>
 );

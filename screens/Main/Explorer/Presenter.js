@@ -63,7 +63,7 @@ export default ({ rooms, increasePage }) => (
               {...room}
               isFav={room.in_favorite ? true : false}
               isSuperHost={room.user.superhost}
-              key={room.id}
+              key={`${room.id}+${Math.random() * 20}`}
             />
           ))}
           <TouchableOpacity onPress={increasePage}>

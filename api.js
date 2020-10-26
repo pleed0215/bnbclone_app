@@ -11,7 +11,7 @@ const USERS_ROUTES = {
   me: "users/me/",
   update: "users/update/",
   partialUpdate: "users/partial_update",
-  toggleFavs: (id) => `users/${id}toggle_favs`,
+  toggleFavs: (id) => `users/${id}/favs/`,
   favs: (id) => `users/${id}/favs/`,
 };
 
@@ -42,6 +42,9 @@ export const userLogin = (form) => callApi("post", USERS_ROUTES.login, form);
 export default {
   createAccount: (form) => callApi("post", USERS_ROUTES.users, form),
   userLogin: (form) => callApi("post", USERS_ROUTES.login, form),
-  rooms: (page = 1) => callApi("get", ROOMS_ROUTE.rooms(page)),
+  rooms: (page = 1, jwt = "") =>
+    callApi("get", ROOMS_ROUTE.rooms(page), null, jwt),
   getFavs: (id, jwt) => callApi("get", USERS_ROUTES.favs(id), null, jwt),
+  toggleFavs: (id, jwt) =>
+    callApi("put", USERS_ROUTES.toggleFavs(id), null, jwt),
 };

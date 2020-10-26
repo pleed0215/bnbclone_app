@@ -8,6 +8,7 @@ const userSlice = createSlice({
     isLoggedIn: false,
     token: null,
     userID: null,
+    favs: [],
   },
   reducers: {
     login(state, action) {
@@ -20,11 +21,14 @@ const userSlice = createSlice({
       state.token = null;
       state.userID = null;
     },
+    favs(state, action) {
+      state.favs = action.payload.favs;
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { login, logout } = actions;
+export const { login, logout, favs } = actions;
 export const apiLogin = (form) => async (dispatch) => {
   try {
     const {
@@ -45,10 +49,23 @@ export const getFavs = () => async (dispatch, getState) => {
   try {
     if (isLoggedIn) {
       const { data } = await api.getFavs(userID, token);
-      console.log(data);
+
+      dispatch(favs({ favs: data }));
     } else {
       throw Error("Login required");
     }
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+export const toggleFavs = (roomID) => async (dispatch, getState) => {
+  const {
+    usersReducer: { token },
+  } = getState();
+  try {
+    const { data } = await api.toggleFavs(roomID, token);
+    dispatch(favs({ favs: data }));
   } catch (e) {
     console.warn(e);
   }

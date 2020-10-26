@@ -9,5 +9,6 @@ export default ({ getRooms, rooms, page, increasePage }) => {
   useEffect(() => {
     getRooms(page);
   }, [page]);
+
   return <Presenter rooms={rooms} page={page} increasePage={increasePage} />;
 };

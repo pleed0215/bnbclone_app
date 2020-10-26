@@ -20,7 +20,7 @@ const Title = styled.Text`
 `;
 
 export default ({ favs }) => {
-  console.log(favs);
+  
   return (
     <Container>
       <Title>Favorites</Title>

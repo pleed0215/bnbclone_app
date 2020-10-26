@@ -11,8 +11,8 @@ const USERS_ROUTES = {
   me: "users/me/",
   update: "users/update/",
   partialUpdate: "users/partial_update",
-  toggleFavs: "users/toggle_favs",
-  favs: (id) => `users/${id}/favs`,
+  toggleFavs: (id) => `users/${id}toggle_favs`,
+  favs: (id) => `users/${id}/favs/`,
 };
 
 const ROOMS_ROUTE = {
@@ -24,7 +24,7 @@ const ROOMS_ROUTE = {
 const makeUrl = (route) => `${URL}${API_VERSION_ROUTE}${route}`;
 const callApi = async (method, path, data, jwt) => {
   const headers = {
-    Authorization: jwt,
+    Authorization: `X-JWT ${jwt}`,
     "Content-Type": "application/json",
   };
 
@@ -43,4 +43,5 @@ export default {
   createAccount: (form) => callApi("post", USERS_ROUTES.users, form),
   userLogin: (form) => callApi("post", USERS_ROUTES.login, form),
   rooms: (page = 1) => callApi("get", ROOMS_ROUTE.rooms(page)),
+  getFavs: (id, jwt) => callApi("get", USERS_ROUTES.favs(id), null, jwt),
 };

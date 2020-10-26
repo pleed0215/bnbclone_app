@@ -425,3 +425,13 @@ connect(map, map) (component)
 1. 갑자기 Swiper 라이브러리를 변경.
    - Swiper from "react-native-web-swiper"
    - PrevComponent, NextComponent property가 있는데 이부분은 next나 prev를 swiper에 표시해주는 부분. 없애도 상관 없다. 그래도 강의에서는 없앰.
+
+# 10. SAVED SCREEN
+
+# 10.0 Getting Favourites
+
+1. api 및 slice에 action 추가.
+2. redux thunk?
+
+- redux toolkit을 설치할 때 같이 설치 된다.
+-

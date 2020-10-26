@@ -400,3 +400,28 @@ connect(map, map) (component)
 - 나는 잘되는데 webp를 jpg, jpeg로 변환해야 한다고 하면서... DRF로 가서 pillow를 이용하여 jpg로 변환한다.
 
 2. NAS에 api 서버를 돌릴 수 있게 되었다. debug 모드로.
+
+# 9.10 LoadMore
+
+- 결국에는 니콜라스가 옳았다. 내가 어리석었음. page와 rooms 저장하는 방식에 대해.. 나는 페이지네이션이 있지 않을까 했는데.
+- 여기에서 목적은 유사 infinite scroll이었다.
+
+1. useState, redux dispatch 까지 이번 화 강의는 매우 의미 있음.
+2. 현재 방식의 문제점은 새로운 room이 생길 때, 새로운 room이 과거 페이지에 있다면.. 또는 room이 수정되었다면?? 그런 것들이 반영이 안될 것임.
+
+- redux persist 사용 목적에 부합한가?? 자주 refresh 되어야 하는 것들이 말이야.
+- 현재 로드한 페이지는 한달 후에도 똑같을 것.
+- redux를 page에 저장하면 안되지 않을까.. 하는 문제가 생김.
+- explorer는 항상 새로워야 하기 때문.
+
+## 9.12 Realm database
+
+1. 핸드폰에 database가 있는 것처럼 느끼게 해줌.
+2. ORM 방식의 sqlite와 비스무리 한 것이라고 생각하면 될듯.. redux store를 사용하고 싶지 않으면 사용 가능하다라는 의미인 것같다.
+3. mongoDB like함.
+
+## 9.13 React Native Web Swiper
+
+1. 갑자기 Swiper 라이브러리를 변경.
+   - Swiper from "react-native-web-swiper"
+   - PrevComponent, NextComponent property가 있는데 이부분은 next나 prev를 swiper에 표시해주는 부분. 없애도 상관 없다. 그래도 강의에서는 없앰.

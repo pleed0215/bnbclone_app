@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import utils from "../utils";
-import Swiper from "react-native-swiper";
+import Swiper from "react-native-web-swiper";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -54,7 +54,6 @@ const SuperHostText = styled.Text`
 `;
 
 const PhotosContainer = styled.View`
-  background-color: red;
   height: ${height / 4}px;
   width: 100%;
   margin-bottom: 25px;
@@ -69,10 +68,17 @@ const RoomCard = ({ id, isFav, isSuperHost, photos, name, rating, price }) => (
         <DefaultImage source={utils.defaultImage} />
       ) : (
         <Swiper
-          autoplay
-          paginationStyle={{ marginBottom: -15 }}
-          activeDotColor={"white"}
-          dotColor={"rgba(200,200,200,0.8)"}
+          timeout={2}
+          loop
+          from={1}
+          sprintConfig={{ speed: 11 }}
+          controlsProps={{
+            PrevComponent: () => null,
+            NextComponent: () => null,
+            dotActiveStyle: {
+              backgroundColor: "white",
+            },
+          }}
         >
           {photos.map((photo) => (
             <SlideImage key={photo.caption} source={{ uri: photo.file }} />
@@ -107,3 +113,11 @@ RoomCard.propTypes = {
 };
 
 export default RoomCard;
+
+// react native swiper version.
+/* <Swiper
+          autoplay
+          paginationStyle={{ marginBottom: -15 }}
+          activeDotColor={"white"}
+          dotColor={"rgba(200,200,200,0.8)"}
+        ></Swiper> */

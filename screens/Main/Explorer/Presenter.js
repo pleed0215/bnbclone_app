@@ -1,6 +1,6 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import RoomCard from "../../../Components/RoomCard";
 
@@ -30,7 +30,21 @@ const FakeText = styled.Text`
   font-weight: 300;
 `;
 
-export default ({ rooms }) => (
+const LoadMore = styled.View`
+  width: 100%;
+  padding: 10px;
+  align-items: center;
+  background-color: ${ThemeColor.green};
+  border-radius: 5px;
+`;
+
+const LoadMoreText = styled.Text`
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+`;
+
+export default ({ rooms, increasePage }) => (
   <Container>
     {rooms.length === 0 ? (
       <ActivityIndicator color="black" />
@@ -40,18 +54,23 @@ export default ({ rooms }) => (
           <FakeText>Search...</FakeText>
         </FakeBar>
         <ScrollView
-          style={{ width: "100%" }}
+          style={{ width: "100%", marginBottom: 20 }}
           contentContainerStyle={{ paddingHorizontal: 15 }}
           showsVerticalScrollIndicator={false}
         >
           {rooms.map((room) => (
             <RoomCard
               {...room}
-              isFav={room.in_favorite?true:false}
+              isFav={room.in_favorite ? true : false}
               isSuperHost={room.user.superhost}
               key={room.id}
             />
           ))}
+          <TouchableOpacity onPress={increasePage}>
+            <LoadMore>
+              <LoadMoreText>Load More</LoadMoreText>
+            </LoadMore>
+          </TouchableOpacity>
         </ScrollView>
       </>
     )}

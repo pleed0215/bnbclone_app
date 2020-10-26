@@ -28,7 +28,7 @@ export default ({ favs }) => {
         contentContainerStyle={{ paddingHorizontal: 0 }}
         showsVerticalScrollIndicator={false}
       >
-        {favs.map((room) => (
+        {favs?.length >0 && favs.map((room) => (
           <RoomCard
             {...room}
             isFav={room.in_favorite ? true : false}

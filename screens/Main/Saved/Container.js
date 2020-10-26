@@ -6,6 +6,6 @@ export default ({ getFavs, favs }) => {
   useEffect(() => {
     getFavs();
   }, []);
-  
+
   return <Presenter favs={favs} />;
 };

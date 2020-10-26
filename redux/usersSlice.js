@@ -49,7 +49,7 @@ export const getFavs = () => async (dispatch, getState) => {
   try {
     if (isLoggedIn) {
       const { data } = await api.getFavs(userID, token);
-
+      console.log(data);
       dispatch(favs({ favs: data }));
     } else {
       throw Error("Login required");

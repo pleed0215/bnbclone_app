@@ -10,6 +10,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  
   return { favs: state.usersReducer.favs };
 }
 

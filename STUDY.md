@@ -500,3 +500,4 @@ export const toggleFavs = (roomID) => async (dispatch, getState) => {
 
 - 왠지 component props에 navigation을 추가해줘야 할 것 같지만.
 - useNavigation을 사용해도 된다.
+- navigation.setOptions({title});

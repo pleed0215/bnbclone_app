@@ -1,4 +1,6 @@
-import { Platform } from "react-native";
+import { Platform, Dimensions } from "react-native";
+
+const { width, height } = Dimensions.get("screen");
 
 export default {
   isEmail: (email) => {
@@ -7,4 +9,6 @@ export default {
   },
   isAndroid: () => Platform.OS === "android",
   defaultImage: require("./assets/default.jpg"),
+  screenWidth: Dimensions.get("screen").width,
+  screenHeight: Dimensions.get("screen").height,
 };

@@ -36,6 +36,7 @@ export default ({ favs }) => {
             <RoomCard
               {...room}
               isFav={room.in_favorite ? true : false}
+              room={room}
               isSuperHost={room.user.superhost}
               key={`${room.id}+${Math.random() * 20}`}
             />

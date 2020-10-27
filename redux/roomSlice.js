@@ -37,7 +37,7 @@ const roomsSlice = createSlice({
       const {
         explorer: { rooms },
       } = state;
-      console.log(roomID);
+
       const room = rooms.find((room) => room.id === roomID);
       if (room) {
         if (room.in_favorite) {

@@ -12,6 +12,12 @@ import ThemeColor from "../color";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { toggleFavs } from "../redux/roomSlice";
+import { useNavigation } from "@react-navigation/native";
+
+const DefaultImageView = styled.View`
+  width: 100%;
+  height: 100%;
+`;
 
 const DefaultImage = styled.Image`
   width: 100%;
@@ -90,63 +96,71 @@ const RoomCard = ({
   name,
   rating,
   price,
+  room,
 }) => {
   const iconPrefix = utils.isAndroid() ? "md-" : "ios-";
   const iconName = in_favorite
     ? iconPrefix + "heart"
     : iconPrefix + "heart-empty";
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   return (
-    <Container>
-      <PhotosContainer>
-        <FavButton>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(toggleFavs(id));
-            }}
-          >
-            <Ionicons
-              size={20}
-              color={in_favorite ? ThemeColor.red : "black"}
-              name={iconName}
-            />
-          </TouchableOpacity>
-        </FavButton>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("RoomDetail", { room })}
+    >
+      <Container>
+        <PhotosContainer>
+          <FavButton>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(toggleFavs(id));
+              }}
+            >
+              <Ionicons
+                size={20}
+                color={in_favorite ? ThemeColor.red : "black"}
+                name={iconName}
+              />
+            </TouchableOpacity>
+          </FavButton>
 
-        {photos.length === 0 ? (
-          <DefaultImage source={utils.defaultImage} />
-        ) : (
-          <Swiper
-            timeout={2}
-            loop
-            from={1}
-            sprintConfig={{ speed: 11 }}
-            controlsProps={{
-              PrevComponent: () => null,
-              NextComponent: () => null,
-              dotActiveStyle: {
-                backgroundColor: "white",
-              },
-            }}
-          >
-            {photos.map((photo) => (
-              <SlideImage key={photo.caption} source={{ uri: photo.file }} />
-            ))}
-          </Swiper>
+          {photos.length === 0 ? (
+            <DefaultImageView>
+              <DefaultImage source={utils.defaultImage} />
+            </DefaultImageView>
+          ) : (
+            <Swiper
+              timeout={2}
+              loop
+              from={1}
+              sprintConfig={{ speed: 11 }}
+              controlsProps={{
+                PrevComponent: () => null,
+                NextComponent: () => null,
+                dotActiveStyle: {
+                  backgroundColor: "white",
+                },
+              }}
+            >
+              {photos.map((photo) => (
+                <SlideImage key={photo.caption} source={{ uri: photo.file }} />
+              ))}
+            </Swiper>
+          )}
+        </PhotosContainer>
+        {isSuperHost && (
+          <SuperHost>
+            <SuperHostText>Superhost</SuperHostText>
+          </SuperHost>
         )}
-      </PhotosContainer>
-      {isSuperHost && (
-        <SuperHost>
-          <SuperHostText>Superhost</SuperHostText>
-        </SuperHost>
-      )}
-      <Name>{name}</Name>
-      <PriceContainer>
-        <PriceNumber>${price}</PriceNumber>
-        <Price> / night</Price>
-      </PriceContainer>
-    </Container>
+        <Name>{name}</Name>
+        <PriceContainer>
+          <PriceNumber>${price}</PriceNumber>
+          <Price> / night</Price>
+        </PriceContainer>
+      </Container>
+    </TouchableOpacity>
   );
 };
 

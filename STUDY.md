@@ -455,4 +455,48 @@ connect(map, map) (component)
 - 그래서 그 부분은 검색해서 addListener를 사용해야 한다는 것을 알고, 추가해줬는ㄷ 아무것도 안 넣어 줬는데 작동이 되네..
 - 심오하다.
 - 그런데 이 부분에서 문제가 있는게.. 모든 컴퍼넌트를 다 리렌더한다.. 어떻게 수정을 해야할지..
--
+- 결국에는 usersReducer의 fav를 roomsReducer로 옮겼다.
+- 그리고 또 고민할 문제가,
+
+```js
+export const toggleFavs = (roomID) => async (dispatch, getState) => {
+  const {
+    usersReducer: { token },
+  } = getState();
+  try {
+    const { data } = await api.toggleFavs(roomID, token);
+    dispatch(toggleFav({ roomID }));
+  }
+  ...
+```
+
+- 이 파트. dispatch를 backend와 통신 후에 할 것이냐. 전에 할 것이냐.
+- 사용자에게는 먼저 데이터를 표시하게 해주고, 백엔드는 나중에 유저 안 보이게 하는 것.
+
+```js
+export const toggleFavs = (roomID) => async (dispatch, getState) => {
+  const {
+    usersReducer: { token },
+  } = getState();
+    dispatch(toggleFav({ roomID }));
+  try {
+    const { data } = await api.toggleFavs(roomID, token);
+  }
+  ...
+```
+
+- 그렇다면 코드를 위와 같이 작성하면 되는 것.
+
+# 11 ROOM Detail
+
+## 11.0 Room Detail
+
+1. Stack Navigator
+
+- 기존에 bottom tab navigator를 사용하였는데, Room detail 스크린이 나오면, 화면이 덮어지고 싶다.
+- 그래서 탭 네비게이션이 안 보이게 하고 싶기 때문에, stack navigator를 만들어서 bottom tab navigator를 덮어 씌운다.
+
+2. useNavigation
+
+- 왠지 component props에 navigation을 추가해줘야 할 것 같지만.
+- useNavigation을 사용해도 된다.

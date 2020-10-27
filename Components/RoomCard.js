@@ -38,6 +38,8 @@ const SuperHost = styled.View`
   border-radius: 8px;
   background-color: white;
   margin-bottom: 5px;
+  width: 90px;
+  align-items: center;
 `;
 const SuperHostText = styled.Text`
   text-transform: uppercase;

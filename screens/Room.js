@@ -16,7 +16,7 @@ const PhotosContainer = styled.View`
   width: 100%;
   margin-bottom: 25px;
   overflow: hidden;
-  border-radius: 20px;
+
   position: relative;
   z-index: 0;
   justify-content: center;
@@ -35,11 +35,10 @@ export default ({ route, navigation }) => {
   return (
     <Container>
       <ScrollView
-        style={{ width: "100%", paddingHorizontal: 10 }}
+        style={{ width: "100%" }}
         contentContainerStyle={{
           alignItems: "center",
           flex: 1,
-          marginTop: 10,
         }}
       >
         <PhotosContainer>

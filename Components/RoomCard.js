@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get("screen");
 import ThemeColor from "../color";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
-import { toggleFavs } from "../redux/usersSlice";
+import { toggleFavs } from "../redux/roomSlice";
 
 const DefaultImage = styled.Image`
   width: 100%;
@@ -82,24 +82,33 @@ const FavButton = styled.View`
   border: 2px gray solid;
 `;
 
-const RoomCard = ({ id, isFav, isSuperHost, photos, name, rating, price }) => {
-  const [fav, setFav] = useState(isFav);
+const RoomCard = ({
+  id,
+  in_favorite,
+  isSuperHost,
+  photos,
+  name,
+  rating,
+  price,
+}) => {
   const iconPrefix = utils.isAndroid() ? "md-" : "ios-";
-  const iconName = fav ? iconPrefix + "heart" : iconPrefix + "heart-empty";
+  const iconName = in_favorite
+    ? iconPrefix + "heart"
+    : iconPrefix + "heart-empty";
   const dispatch = useDispatch();
+
   return (
     <Container>
       <PhotosContainer>
         <FavButton>
           <TouchableOpacity
             onPress={() => {
-              setFav(!fav);
               dispatch(toggleFavs(id));
             }}
           >
             <Ionicons
               size={20}
-              color={fav ? ThemeColor.red : "black"}
+              color={in_favorite ? ThemeColor.red : "black"}
               name={iconName}
             />
           </TouchableOpacity>
@@ -143,7 +152,7 @@ const RoomCard = ({ id, isFav, isSuperHost, photos, name, rating, price }) => {
 
 RoomCard.propTypes = {
   id: PropTypes.number.isRequired,
-  isFav: PropTypes.bool.isRequired,
+  in_favorite: PropTypes.bool.isRequired,
   isSuperHost: PropTypes.bool.isRequired,
   photos: PropTypes.arrayOf(
     PropTypes.shape({

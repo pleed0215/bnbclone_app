@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getFavs } from "../../../redux/usersSlice";
+import { getFavs } from "../../../redux/roomSlice";
 import Container from "./Container";
 
 function mapDispatchToProps(dispatch) {
@@ -10,8 +10,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  
-  return { favs: state.usersReducer.favs };
+  return { favs: state.roomsReducer.favs };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

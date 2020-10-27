@@ -435,3 +435,24 @@ connect(map, map) (component)
 
 - redux toolkit을 설치할 때 같이 설치 된다.
 -
+
+# 10.3
+
+1. DRF에 Response시 context에 request를 넘겨주기..?
+
+- 나는 안그런데, 니코 강의 보면 favorite의 photo가 full path가 안나오고 relative path만 나오던데,
+- 이 부분 수정은 DRF에서 request context를 response에 넘겨주면 해결 됨.. 근데 왜?
+- 나도 보아하니 넘겨줬었네... user 정보를 넘겨줘야 하기 때문에..
+
+# 10 ending
+
+- 제일 중요한 부분은 redux toolkit, component re-render.
+- redux toolkit에서 state 수정이 되면, component re-render.
+- 어려웠던 부분이 니콜라스 강의와는 달리 usersReducer에 favs를 놔뒀는데,
+- roomsReducer에서 explorer 파트와 연결이 안되는 부분이다보니, explorer에서 re-render가 안 일어났던 것.
+- 그래서 explorer에 fav수정 하는 함수를 추가해줬는데, 그 다음 문제는 SAVED screen에서 Explorer 스크린으로 올 때,
+- favorite 수정한 부분이 반영 안되는 것.
+- 그래서 그 부분은 검색해서 addListener를 사용해야 한다는 것을 알고, 추가해줬는ㄷ 아무것도 안 넣어 줬는데 작동이 되네..
+- 심오하다.
+- 그런데 이 부분에서 문제가 있는게.. 모든 컴퍼넌트를 다 리렌더한다.. 어떻게 수정을 해야할지..
+-

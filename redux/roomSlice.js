@@ -27,10 +27,37 @@ const roomsSlice = createSlice({
     increasePage(state, action) {
       state.explorer.page += 1;
     },
+    setFavs(state, action) {
+      state.favs = action.payload.favs;
+    },
+    toggleFav(state, action) {
+      const {
+        payload: { roomID },
+      } = action;
+      const {
+        explorer: { rooms },
+      } = state;
+      console.log(roomID);
+      const room = rooms.find((room) => room.id === roomID);
+      if (room) {
+        if (room.in_favorite) {
+          room.in_favorite = false;
+          state.favs = state.favs.filter((room) => room.id !== roomID);
+        } else {
+          room.in_favorite = true;
+          state.favs = [room, ...state.favs];
+        }
+      }
+    },
   },
 });
 
-export const { setExplorerRooms, increasePage } = roomsSlice.actions;
+export const {
+  setExplorerRooms,
+  increasePage,
+  setFavs,
+  toggleFav,
+} = roomsSlice.actions;
 
 export const getRooms = (page = 1) => async (dispatch, getState) => {
   const {
@@ -46,6 +73,35 @@ export const getRooms = (page = 1) => async (dispatch, getState) => {
         page,
       })
     );
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+export const getFavs = () => async (dispatch, getState) => {
+  const {
+    usersReducer: { userID, token, isLoggedIn },
+  } = getState();
+  try {
+    if (isLoggedIn) {
+      const { data } = await api.getFavs(userID, token);
+
+      dispatch(setFavs({ favs: data }));
+    } else {
+      throw Error("Login required");
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+export const toggleFavs = (roomID) => async (dispatch, getState) => {
+  const {
+    usersReducer: { token },
+  } = getState();
+  try {
+    const { data } = await api.toggleFavs(roomID, token);
+    dispatch(toggleFav({ roomID }));
   } catch (e) {
     console.warn(e);
   }

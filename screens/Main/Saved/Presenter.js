@@ -19,23 +19,32 @@ const Title = styled.Text`
   margin-bottom: 10px;
 `;
 
+const NoFavText = styled.Text`
+  font-size: 16px;
+`;
+
 export default ({ favs }) => {
-  
   return (
     <Container>
-      <Title>Favorites</Title>
+      <Title>Favorites{favs?.length > 0 && `(${favs.length})`}</Title>
       <RoomContainer
-        contentContainerStyle={{ paddingHorizontal: 0 }}
+        contentContainerStyle={{ paddingHorizontal: 0, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
-        {favs?.length >0 && favs.map((room) => (
-          <RoomCard
-            {...room}
-            isFav={room.in_favorite ? true : false}
-            isSuperHost={room.user.superhost}
-            key={`${room.id}+${Math.random() * 20}`}
-          />
-        ))}
+        {favs?.length > 0 ? (
+          favs.map((room) => (
+            <RoomCard
+              {...room}
+              isFav={room.in_favorite ? true : false}
+              isSuperHost={room.user.superhost}
+              key={`${room.id}+${Math.random() * 20}`}
+            />
+          ))
+        ) : (
+          <NoFavText>
+            You don't have any favourite rooms. Add anything.
+          </NoFavText>
+        )}
       </RoomContainer>
     </Container>
   );

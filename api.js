@@ -17,8 +17,8 @@ const USERS_ROUTES = {
 
 const ROOMS_ROUTE = {
   rooms: (page = 1) => `rooms/?page=${page}`,
-  create: "rooms/create",
-  search: "rooms/search",
+  create: "rooms/create/",
+  search: "rooms/search/",
 };
 
 const makeUrl = (route) => `${URL}${API_VERSION_ROUTE}${route}`;
@@ -29,7 +29,9 @@ const callApi = async (method, path, data, jwt) => {
   };
 
   if (method === "get" || method === "delete") {
-    return axios[method](makeUrl(path), { headers });
+    return data
+      ? axios[method](makeUrl(path), { params: data }, { headers })
+      : axios[method](makeUrl(path), { headers });
   } else {
     return axios[method](makeUrl(path), data, { headers });
   }
@@ -47,4 +49,5 @@ export default {
   getFavs: (id, jwt) => callApi("get", USERS_ROUTES.favs(id), null, jwt),
   toggleFavs: (id, jwt) =>
     callApi("put", USERS_ROUTES.toggleFavs(id), null, jwt),
+  search: (jwt, form) => callApi("get", ROOMS_ROUTE.search, form, jwt),
 };

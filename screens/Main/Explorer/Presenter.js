@@ -52,7 +52,7 @@ const LoadMoreText = styled.Text`
 
 export default ({ rooms, increasePage }) => {
   const navigation = useNavigation();
-  return rooms.length === 0 ? (
+  return rooms?.length === 0 ? (
     <Container>
       <ActivityIndicator color="black" />
     </Container>

@@ -31,7 +31,7 @@ export default ({ photos, room, disabled, factor = 4 }) => {
   const navigation = useNavigation();
   return (
     <ImageView factor={factor}>
-      {photos.length === 0 ? (
+      {photos?.length === 0 ? (
         <TouchableOpacity
           disabled={disabled}
           onPress={() => navigation.navigate("RoomDetail", { room })}
@@ -53,7 +53,7 @@ export default ({ photos, room, disabled, factor = 4 }) => {
             },
           }}
         >
-          {photos.map((photo) => (
+          {photos?.map((photo) => (
             <TouchableOpacity
               disabled={disabled}
               key={photo.caption}

@@ -518,3 +518,19 @@ export const toggleFavs = (roomID) => async (dispatch, getState) => {
 - zoomEnabled
 - scrollEnabled
 - camera
+
+# 12
+
+## 12.2
+
+1. ES6 conditional object
+
+- object property를 추가할 때, null 값 또는 조건에 맞는 경우만 property에 넣고 싶은 경우...
+
+```js
+const obj = {
+  ...(beds && { beds }),
+};
+```
+
+- 위 코드의 ...{beds} 하면, beds:beds 이렇게 들어간다.

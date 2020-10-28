@@ -7,6 +7,7 @@ import DismissKeyboard from "../../../Components/DismissKeyboard";
 import ThemeColor from "../../../color";
 import { ActivityIndicator } from "react-native";
 import api from "../../../api";
+import RoomPhoto from "../../../Components/RoomPhoto";
 
 const Container = styled.View`
   padding: 0px 20px;
@@ -76,10 +77,10 @@ const SearchButtonText = styled.Text`
 `;
 
 const ResultContainer = styled.ScrollView`
-  width: 100%;
   background-color: ${ThemeColor.red};
-
   margin-top: 20px;
+  width: 100%;
+  height: 100%;
 `;
 
 const IndicatorContainer = styled.View`
@@ -88,6 +89,14 @@ const IndicatorContainer = styled.View`
   align-items: center;
   justify-content: center;
 `;
+
+const Result = styled.View`
+  margin-bottom: 10px;
+  width: 100%;
+  height: 400px;
+`;
+
+const ResultText = styled.Text``;
 
 const SEARCH_INPUT = 1,
   SEARCH_PENDING = -1,
@@ -103,6 +112,10 @@ const Presenter = ({ token }) => {
 
   const [searchState, setSearchState] = useState(SEARCH_INPUT);
 
+  const searchArray = [];
+  let nextUrl = null;
+  let resultCount = 0;
+
   const submit = async () => {
     const form = {
       ...(beds && { beds: parseInt(beds, 10) }),
@@ -113,8 +126,14 @@ const Presenter = ({ token }) => {
     };
     setSearchState(SEARCH_PENDING);
     try {
-      const { data } = await api.search(token, form);
-      console.log(data);
+      const {
+        data: { results, count, next },
+      } = await api.search(token, form);
+      searchArray.splice(0, searchArray.length);
+      results.forEach((room) => searchArray.push(room));
+      nextUrl = next;
+      resultCount = count;
+      console.log(searchArray, next, count);
     } catch (e) {
       console.error(e);
     } finally {
@@ -122,6 +141,14 @@ const Presenter = ({ token }) => {
     }
 
     setTimeout(() => setSearchState(SEARCH_COMPLETE), 4000);
+  };
+
+  const loadMoreResult = async () => {
+    const {
+      data: { results, next },
+    } = await api.callApi("get", nextUrl, null, token);
+    nextUrl = next;
+    results.forEach((room) => searchArray.push(room));
   };
 
   return (
@@ -193,7 +220,7 @@ const Presenter = ({ token }) => {
               </IndicatorContainer>
             )}
             {searchState === SEARCH_COMPLETE && (
-              <FilterLabel>Complete</FilterLabel>
+              <ResultText>Result: {resultCount}</ResultText>
             )}
           </ResultContainer>
         )}

@@ -29,9 +29,7 @@ const callApi = async (method, path, data, jwt) => {
   };
 
   if (method === "get" || method === "delete") {
-    return data
-      ? axios[method](makeUrl(path), { params: data }, { headers })
-      : axios[method](makeUrl(path), { headers });
+    return axios[method](makeUrl(path), { headers, params: data });
   } else {
     return axios[method](makeUrl(path), data, { headers });
   }
@@ -50,4 +48,5 @@ export default {
   toggleFavs: (id, jwt) =>
     callApi("put", USERS_ROUTES.toggleFavs(id), null, jwt),
   search: (jwt, form) => callApi("get", ROOMS_ROUTE.search, form, jwt),
+  callApi: (method, path, data, jwt) => callApi(method, path, data, jwt),
 };

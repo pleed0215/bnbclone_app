@@ -11,4 +11,13 @@ export default {
   defaultImage: require("./assets/default.jpg"),
   screenWidth: Dimensions.get("screen").width,
   screenHeight: Dimensions.get("screen").height,
+  plural: (number, str, s = "s") =>
+    number > 1 ? `${number} ${str}${s}` : `${number} ${str}`,
+  makeIconName: (iconName) =>
+    Platform.OS === "android" ? "md-" + iconName : "ios-" + iconName,
+  makeTime: (timeString) => {
+    const [hour, min, sec] = timeString.split(":");
+
+    return `${hour}:${min}:${sec.slice(0, 2)}`;
+  },
 };

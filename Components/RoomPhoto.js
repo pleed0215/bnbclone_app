@@ -6,12 +6,13 @@ import styled from "styled-components/native";
 import Swiper from "react-native-web-swiper";
 //import Swiper from "react-native-swiper";
 import utils from "../utils";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
 
-const DefaultImageView = styled.View`
+const ImageView = styled.View`
   width: 100%;
-  height: 100%;
+  height: ${(props) => height / props.factor}px;
 `;
 
 const DefaultImage = styled.Image`
@@ -26,30 +27,44 @@ const SlideImage = styled.Image`
   resize-mode: cover;
 `;
 
-export default ({ photos }) => {
-  return photos.length === 0 ? (
-    <DefaultImageView>
-      <DefaultImage source={utils.defaultImage} />
-    </DefaultImageView>
-  ) : (
-    <Swiper
-      timeout={2}
-      loop
-      from={1}
-      containerStyle={{ width: "100%", flex: 1 }}
-      sprintConfig={{ speed: 11 }}
-      controlsProps={{
-        PrevComponent: () => null,
-        NextComponent: () => null,
-        dotActiveStyle: {
-          backgroundColor: "white",
-        },
-      }}
-    >
-      {photos.map((photo) => (
-        <SlideImage key={photo.caption} source={{ uri: photo.file }} />
-      ))}
-    </Swiper>
+export default ({ photos, room, disabled, factor = 4 }) => {
+  const navigation = useNavigation();
+  return (
+    <ImageView factor={factor}>
+      {photos.length === 0 ? (
+        <TouchableOpacity
+          disabled={disabled}
+          onPress={() => navigation.navigate("RoomDetail", { room })}
+        >
+          <DefaultImage source={utils.defaultImage} />
+        </TouchableOpacity>
+      ) : (
+        <Swiper
+          timeout={2}
+          loop
+          from={1}
+          containerStyle={{ width: "100%", flex: 1 }}
+          sprintConfig={{ speed: 11 }}
+          controlsProps={{
+            PrevComponent: () => null,
+            NextComponent: () => null,
+            dotActiveStyle: {
+              backgroundColor: "white",
+            },
+          }}
+        >
+          {photos.map((photo) => (
+            <TouchableOpacity
+              disabled={disabled}
+              key={photo.caption}
+              onPress={() => navigation.navigate("RoomDetail", { room })}
+            >
+              <SlideImage key={photo.caption} source={{ uri: photo.file }} />
+            </TouchableOpacity>
+          ))}
+        </Swiper>
+      )}
+    </ImageView>
   );
 };
 /*

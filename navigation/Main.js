@@ -93,7 +93,7 @@ export default () => (
     <MainNavigator.Screen
       name="Search"
       component={Search}
-      options={{ headerTitle: null }}
+      options={{ headerShown: false }}
     />
   </MainNavigator.Navigator>
 );

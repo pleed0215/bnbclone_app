@@ -18,6 +18,7 @@ export default {
   makeTime: (timeString) => {
     const [hour, min, sec] = timeString.split(":");
 
-    return `${hour}:${min}:${sec.slice(0, 2)}`;
+    //return `${hour}:${min}:${sec.slice(0, 2)}`;
+    return `${parseInt(hour, 10)} o'clock`;
   },
 };

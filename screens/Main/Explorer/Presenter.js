@@ -1,10 +1,15 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import RoomCard from "../../../Components/RoomCard";
 
 import ThemeColor from "../../../color";
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View`
   justify-content: center;
@@ -44,36 +49,44 @@ const LoadMoreText = styled.Text`
   font-weight: 500;
 `;
 
-export default ({ rooms, increasePage }) => (
-  <Container>
-    {rooms.length === 0 ? (
-      <ActivityIndicator color="black" />
-    ) : (
-      <>
-        <FakeBar>
-          <FakeText>Search...</FakeText>
-        </FakeBar>
-        <ScrollView
-          style={{ width: "100%", marginBottom: 20 }}
-          contentContainerStyle={{ paddingHorizontal: 15 }}
-          showsVerticalScrollIndicator={false}
-        >
-          {rooms.map((room) => (
-            <RoomCard
-              {...room}
-              room={room}
-              isFav={room.in_favorite ? true : false}
-              isSuperHost={room.user.superhost}
-              key={`${room.id}+${Math.random() * 20}`}
-            />
-          ))}
-          <TouchableOpacity onPress={increasePage}>
-            <LoadMore>
-              <LoadMoreText>Load More</LoadMoreText>
-            </LoadMore>
-          </TouchableOpacity>
-        </ScrollView>
-      </>
-    )}
-  </Container>
-);
+export default ({ rooms, increasePage }) => {
+  const navigation = useNavigation();
+  return (
+    <Container>
+      {rooms.length === 0 ? (
+        <ActivityIndicator color="black" />
+      ) : (
+        <>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("Search")}
+            style={{ with: "100%" }}
+          >
+            <FakeBar>
+              <FakeText>Search...</FakeText>
+            </FakeBar>
+          </TouchableWithoutFeedback>
+          <ScrollView
+            style={{ width: "100%", marginBottom: 20 }}
+            contentContainerStyle={{ paddingHorizontal: 15 }}
+            showsVerticalScrollIndicator={false}
+          >
+            {rooms.map((room) => (
+              <RoomCard
+                {...room}
+                room={room}
+                isFav={room.in_favorite ? true : false}
+                isSuperHost={room.user.superhost}
+                key={`${room.id}+${Math.random() * 20}`}
+              />
+            ))}
+            <TouchableOpacity onPress={increasePage}>
+              <LoadMore>
+                <LoadMoreText>Load More</LoadMoreText>
+              </LoadMore>
+            </TouchableOpacity>
+          </ScrollView>
+        </>
+      )}
+    </Container>
+  );
+};

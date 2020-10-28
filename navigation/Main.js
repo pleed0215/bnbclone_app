@@ -13,6 +13,7 @@ import utils from "../utils";
 import { Ionicons } from "@expo/vector-icons";
 import BackBtn from "../Components/Auth/BackBtn";
 import { BlurView } from "expo-blur";
+import Search from "../screens/Main/Search";
 
 const TabsNavigator = createBottomTabNavigator();
 
@@ -88,6 +89,11 @@ export default () => (
           />
         ),
       }}
+    />
+    <MainNavigator.Screen
+      name="Search"
+      component={Search}
+      options={{ headerTitle: null }}
     />
   </MainNavigator.Navigator>
 );

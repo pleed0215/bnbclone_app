@@ -8,8 +8,10 @@ const Container = styled.View`
 `;
 const Text = styled.Text``;
 
-export default () => (
+const Presenter = () => (
   <Container>
     <Text>Map</Text>
   </Container>
 );
+
+export default Presenter;

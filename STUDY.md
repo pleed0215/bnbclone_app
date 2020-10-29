@@ -537,3 +537,12 @@ const obj = {
 
 - useSelector -> mapStateToProps 와 같은.. 역할을 하는 함수..
 - 일찍도 알려준다.
+
+# 13
+
+## 13.0 Map screen setup
+
+1. map screen
+
+- explore에 있는 방을 표시
+- map을 움직일 때마다 결과 가져와서 표시.

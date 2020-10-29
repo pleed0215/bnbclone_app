@@ -22,16 +22,19 @@ const ROOMS_ROUTE = {
 };
 
 const makeUrl = (route) => `${URL}${API_VERSION_ROUTE}${route}`;
-const callApi = async (method, path, data, jwt) => {
+const callApi = async (method, path, data, jwt, url = false) => {
   const headers = {
     Authorization: `X-JWT ${jwt}`,
     "Content-Type": "application/json",
   };
 
   if (method === "get" || method === "delete") {
-    return axios[method](makeUrl(path), { headers, params: data });
+    return axios[method](!url ? makeUrl(path) : path, {
+      headers,
+      params: data,
+    });
   } else {
-    return axios[method](makeUrl(path), data, { headers });
+    return axios[method](!url ? makeUrl(path) : path, data, { headers });
   }
 };
 
@@ -48,5 +51,6 @@ export default {
   toggleFavs: (id, jwt) =>
     callApi("put", USERS_ROUTES.toggleFavs(id), null, jwt),
   search: (jwt, form) => callApi("get", ROOMS_ROUTE.search, form, jwt),
-  callApi: (method, path, data, jwt) => callApi(method, path, data, jwt),
+  callApi: (method, path, data, jwt, url) =>
+    callApi(method, path, data, jwt, url),
 };

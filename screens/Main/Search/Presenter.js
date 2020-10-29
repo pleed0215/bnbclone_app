@@ -6,19 +6,22 @@ import DismissKeyboard from "../../../Components/DismissKeyboard";
 
 import ThemeColor from "../../../color";
 import { ActivityIndicator } from "react-native";
-import api from "../../../api";
 import RoomPhoto from "../../../Components/RoomPhoto";
+import api from "../../../api";
+import utils from "../../../utils";
 
 const Container = styled.View`
-  padding: 0px 20px;
+  padding: 0px 0px;
   align-items: center;
+  width: 100%;
 `;
 const SearchContainer = styled.View`
   margin-top: 50px;
-  padding: 10px 0px;
+  padding: 10px 20px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 `;
 
 const SearchBar = styled.TextInput`
@@ -64,9 +67,12 @@ const Filter = styled.TextInput`
 const SearchButton = styled.TouchableOpacity`
   width: 90%;
   height: 40px;
-  background-color: ${ThemeColor.red};
+  background-color: ${({ green }) =>
+    green ? ThemeColor.green : ThemeColor.red};
   align-items: center;
+  justify-content: center;
   border-radius: 10px;
+  margin-top: 10px;
 `;
 
 const SearchButtonText = styled.Text`
@@ -77,10 +83,9 @@ const SearchButtonText = styled.Text`
 `;
 
 const ResultContainer = styled.ScrollView`
-  background-color: ${ThemeColor.red};
   margin-top: 20px;
   width: 100%;
-  height: 100%;
+  height: 600px;
 `;
 
 const IndicatorContainer = styled.View`
@@ -91,12 +96,36 @@ const IndicatorContainer = styled.View`
 `;
 
 const Result = styled.View`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   width: 100%;
-  height: 400px;
+  height: ${utils.screenHeight / 5}px;
+  border-radius: 20px;
 `;
 
-const ResultText = styled.Text``;
+const ResultCount = styled.Text`
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+`;
+
+const ResultInfoContainer = styled.View`
+  flex-direction: row;
+  margin-left: 10px;
+`;
+
+const ResultInfoName = styled.Text`
+  font-size: 15px;
+  margin-left: 10px;
+`;
+
+const ResultInfoProperty = styled.Text`
+  margin-left: 10px;
+  padding: 2px 5px;
+  background-color: ${ThemeColor.green};
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+`;
 
 const SEARCH_INPUT = 1,
   SEARCH_PENDING = -1,
@@ -109,12 +138,13 @@ const Presenter = ({ token }) => {
   const [bathrooms, setBathrooms] = useState();
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
-
+  const [resultCount, setResultCount] = useState();
+  const [searchResult, setSearchResult] = useState([]);
+  const [moreLoading, setMoreLoading] = useState(false);
+  const [nextUrl, setNextUrl] = useState();
   const [searchState, setSearchState] = useState(SEARCH_INPUT);
 
   const searchArray = [];
-  let nextUrl = null;
-  let resultCount = 0;
 
   const submit = async () => {
     const form = {
@@ -129,10 +159,10 @@ const Presenter = ({ token }) => {
       const {
         data: { results, count, next },
       } = await api.search(token, form);
-      searchArray.splice(0, searchArray.length);
-      results.forEach((room) => searchArray.push(room));
-      nextUrl = next;
-      resultCount = count;
+      setSearchResult([]);
+      setSearchResult(results);
+      setNextUrl(next);
+      setResultCount(count);
       console.log(searchArray, next, count);
     } catch (e) {
       console.error(e);
@@ -144,11 +174,19 @@ const Presenter = ({ token }) => {
   };
 
   const loadMoreResult = async () => {
-    const {
-      data: { results, next },
-    } = await api.callApi("get", nextUrl, null, token);
-    nextUrl = next;
-    results.forEach((room) => searchArray.push(room));
+    setMoreLoading(true);
+    console.log(nextUrl);
+    try {
+      const {
+        data: { results, next },
+      } = await api.callApi("get", nextUrl, null, token, true);
+      setNextUrl(next);
+      setSearchResult([...searchResult, ...results]);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setMoreLoading(false);
+    }
   };
 
   return (
@@ -213,14 +251,44 @@ const Presenter = ({ token }) => {
           <SearchButtonText>Search</SearchButtonText>
         </SearchButton>
         {searchState !== SEARCH_INPUT && (
-          <ResultContainer>
+          <ResultContainer contentContainerStyle={{ alignItems: "center" }}>
             {searchState === SEARCH_PENDING && (
               <IndicatorContainer>
                 <ActivityIndicator size="large" />
               </IndicatorContainer>
             )}
             {searchState === SEARCH_COMPLETE && (
-              <ResultText>Result: {resultCount}</ResultText>
+              <>
+                <ResultCount>Result: {resultCount}</ResultCount>
+
+                {searchResult.map((room) => (
+                  <Result key={room.id}>
+                    <RoomPhoto photos={room.photos} room={room} factor={6} />
+                    <ResultInfoName>{room.name}</ResultInfoName>
+                    <ResultInfoContainer>
+                      <ResultInfoProperty>${room.price}/day</ResultInfoProperty>
+                      <ResultInfoProperty>
+                        {utils.plural(room.beds, "bed")}
+                      </ResultInfoProperty>
+                      <ResultInfoProperty>
+                        {utils.plural(room.bedrooms, "bedroom")}
+                      </ResultInfoProperty>
+                      <ResultInfoProperty>
+                        {utils.plural(room.bathrooms, "bathroom")}
+                      </ResultInfoProperty>
+                    </ResultInfoContainer>
+                  </Result>
+                ))}
+                {searchResult.length !== resultCount && (
+                  <SearchButton green onPress={() => loadMoreResult()}>
+                    {moreLoading ? (
+                      <ActivityIndicator size="small" />
+                    ) : (
+                      <SearchButtonText>Load More</SearchButtonText>
+                    )}
+                  </SearchButton>
+                )}
+              </>
             )}
           </ResultContainer>
         )}

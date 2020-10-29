@@ -163,14 +163,11 @@ const Presenter = ({ token }) => {
       setSearchResult(results);
       setNextUrl(next);
       setResultCount(count);
-      console.log(searchArray, next, count);
     } catch (e) {
       console.error(e);
     } finally {
       setSearchState(SEARCH_COMPLETE);
     }
-
-    setTimeout(() => setSearchState(SEARCH_COMPLETE), 4000);
   };
 
   const loadMoreResult = async () => {
@@ -257,9 +254,9 @@ const Presenter = ({ token }) => {
                 <ActivityIndicator size="large" />
               </IndicatorContainer>
             )}
-            {searchState === SEARCH_COMPLETE && (
+            {searchState === SEARCH_COMPLETE && resultCount > 0 && (
               <>
-                <ResultCount>Result: {resultCount}</ResultCount>
+                <ResultCount>Result: found {resultCount}</ResultCount>
 
                 {searchResult.map((room) => (
                   <Result key={room.id}>

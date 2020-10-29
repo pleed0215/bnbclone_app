@@ -534,3 +534,6 @@ const obj = {
 ```
 
 - 위 코드의 ...{beds} 하면, beds:beds 이렇게 들어간다.
+
+- useSelector -> mapStateToProps 와 같은.. 역할을 하는 함수..
+- 일찍도 알려준다.

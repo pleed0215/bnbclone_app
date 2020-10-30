@@ -41,7 +41,6 @@ const RoomPhoto = styled.Image`
   height: 80px;
   border-radius: 8px;
   border-width: 1px;
-  border-style: solid;
   border-color: ${ThemeColor.grey};
   margin-right: 10px;
 `;
@@ -58,6 +57,25 @@ const RoomPrice = styled.Text`
   font-size: 16px;
   font-weight: ${({ bold }) => (bold ? 600 : 100)};
 `;
+
+const MarkerContainer = styled.View`
+  background-color: ${ThemeColor.green};
+  padding: 5px;
+  overflow: hidden;
+  border-radius: 10px;
+`;
+const MarkerText = styled.Text`
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+const MarkerTriangle = styled.View``;
+const RoomMarker = ({ price }) => (
+  <MarkerContainer>
+    <MarkerText>${price}</MarkerText>
+  </MarkerContainer>
+);
 
 const Presenter = ({ rooms }) => {
   const navigation = useNavigation();
@@ -78,7 +96,7 @@ const Presenter = ({ rooms }) => {
           latitude: parseFloat(rooms[currentIndex].lat),
           longitude: parseFloat(rooms[currentIndex].lng),
         },
-        altitude: 0,
+        altitude: 500,
         pitch: 0,
         heading: 0,
         zoom: 18,
@@ -91,14 +109,14 @@ const Presenter = ({ rooms }) => {
     <Container>
       <MapView
         style={StyleSheet.absoluteFill}
-        provider={PROVIDER_GOOGLE}
+        //provider={PROVIDER_GOOGLE}
         ref={mapRef}
         camera={{
           center: {
             latitude: parseFloat(rooms[0].lat),
             longitude: parseFloat(rooms[0].lng),
           },
-          altitude: 0,
+          altitude: 1000,
           pitch: 0,
           heading: 0,
           zoom: 18,
@@ -111,7 +129,9 @@ const Presenter = ({ rooms }) => {
               longitude: parseFloat(room.lng),
               latitude: parseFloat(room.lat),
             }}
-          />
+          >
+            <RoomMarker price={room.price} />
+          </Marker>
         ))}
       </MapView>
       <ScrollView

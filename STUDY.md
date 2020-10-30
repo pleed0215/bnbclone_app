@@ -558,5 +558,10 @@ ScrollView, pagingEnabled
   - scrollEventThrottle
 
 - useState로도 충분히 map의 market 위치를 바꿀 수 있는데, 강의에서는 useRef를 이용한다.
+
   - useRef를 이용하면 property, method 등에 접근을 할 수 있기 때문.
   - useRef를 이용하여 method animateCamera를 이용하여 이동하니 더 자연스럽다.
+
+- Custom Marker
+  - <Marker /> 하지 말고 <Marker>이 안에 넣으면 렌더링이 된다.</Marker>
+  - google map에서는 왜 안돼지?

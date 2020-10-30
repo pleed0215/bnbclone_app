@@ -546,3 +546,17 @@ const obj = {
 
 - explore에 있는 방을 표시
 - map을 움직일 때마다 결과 가져와서 표시.
+
+ScrollView, pagingEnabled
+
+- ScrollView 안의 View..paging하면서 스크린 크기를 좀 줄였더니 의도한 바와는 달리 이상하게 나옴.
+- 해결책으로 위에 컨테이너를 또 만듬.
+
+- onScroll event
+
+  - throttle? fluid flow management
+  - scrollEventThrottle
+
+- useState로도 충분히 map의 market 위치를 바꿀 수 있는데, 강의에서는 useRef를 이용한다.
+  - useRef를 이용하면 property, method 등에 접근을 할 수 있기 때문.
+  - useRef를 이용하여 method animateCamera를 이용하여 이동하니 더 자연스럽다.

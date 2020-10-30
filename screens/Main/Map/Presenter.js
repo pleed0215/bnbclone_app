@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
-import utils from "../../../utils";
 import ThemeColor from "../../../color";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import utils from "../../../utils";
 
 const windowWidth = Dimensions.get("window").width;
 const windowheight = Dimensions.get("window").height;
@@ -91,38 +91,21 @@ const RoomMarker = ({ selected, price }) => (
   </MarkerWrapper>
 );
 
-const Presenter = ({ rooms }) => {
+const Presenter = ({
+  rooms,
+  onScroll,
+  mapRef,
+  currentIndex,
+  setCurrentIndex,
+  onMapMoved,
+}) => {
   const navigation = useNavigation();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const mapRef = useRef();
-
-  const onScroll = ({ nativeEvent: { contentOffset } }) => {
-    const { x } = contentOffset;
-    const index = Math.abs(Math.floor(x / utils.screenWidth));
-
-    if (currentIndex != index) setCurrentIndex(index);
-  };
-
-  useEffect(() => {
-    mapRef?.current?.animateCamera(
-      {
-        center: {
-          latitude: parseFloat(rooms[currentIndex].lat),
-          longitude: parseFloat(rooms[currentIndex].lng),
-        },
-        altitude: 500,
-        pitch: 0,
-        heading: 0,
-        zoom: 18,
-      },
-      { duration: 1000 }
-    );
-  }, [currentIndex]);
 
   return (
     <Container>
       <MapView
         style={StyleSheet.absoluteFill}
+        onRegionChangeComplete={onMapMoved}
         //provider={PROVIDER_GOOGLE}
         ref={mapRef}
         camera={{

@@ -59,10 +59,12 @@ const RoomPrice = styled.Text`
 `;
 
 const MarkerContainer = styled.View`
-  background-color: ${ThemeColor.green};
-  padding: 5px;
+  background-color: ${({ selected }) =>
+    selected ? ThemeColor.red : ThemeColor.green};
+  padding: 10px;
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
 `;
 const MarkerText = styled.Text`
   color: white;
@@ -70,11 +72,23 @@ const MarkerText = styled.Text`
   font-size: 18px;
 `;
 
-const MarkerTriangle = styled.View``;
-const RoomMarker = ({ price }) => (
-  <MarkerContainer>
-    <MarkerText>${price}</MarkerText>
-  </MarkerContainer>
+const MarkerTriangle = styled.View`
+  border: 10px solid transparent;
+  border-top-color: ${({ selected }) =>
+    selected ? ThemeColor.red : ThemeColor.green};
+  width: 10px;
+`;
+
+const MarkerWrapper = styled.View`
+  align-items: center;
+`;
+const RoomMarker = ({ selected, price }) => (
+  <MarkerWrapper>
+    <MarkerContainer selected={selected}>
+      <MarkerText>${price}</MarkerText>
+    </MarkerContainer>
+    <MarkerTriangle selected={selected} />
+  </MarkerWrapper>
 );
 
 const Presenter = ({ rooms }) => {
@@ -130,7 +144,10 @@ const Presenter = ({ rooms }) => {
               latitude: parseFloat(room.lat),
             }}
           >
-            <RoomMarker price={room.price} />
+            <RoomMarker
+              selected={room.id === rooms[currentIndex].id}
+              price={room.price}
+            />
           </Marker>
         ))}
       </MapView>

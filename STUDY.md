@@ -565,3 +565,4 @@ ScrollView, pagingEnabled
 - Custom Marker
   - <Marker /> 하지 말고 <Marker>이 안에 넣으면 렌더링이 된다.</Marker>
   - google map에서는 왜 안돼지?
+  - 삼각형 만들기??

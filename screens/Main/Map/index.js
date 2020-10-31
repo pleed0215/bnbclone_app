@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import Container from "./Container";
 
 function mapStateToProps(state) {
-  return { rooms: state.roomsReducer.explorer.rooms };
+  return {
+    rooms: state.roomsReducer.explorer.rooms,
+    token: state.usersReducer.token,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

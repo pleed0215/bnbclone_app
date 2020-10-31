@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import api from "../../../api";
 import utils from "../../../utils";
 import Presenter from "./Presenter";
 
-export default ({ rooms }) => {
+export default ({ rooms, token }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const mapRef = useRef();
 
@@ -13,10 +14,14 @@ export default ({ rooms }) => {
     if (currentIndex != index) setCurrentIndex(index);
   };
   const onMapMoved = (region) => {
-    const { lattitude, longitude } = region;
-    mapRef?.current?.getMapBoundaries().then(({ northEast, southWest }) => {
-      console.log(northEast, southWest);
-    });
+    mapRef?.current
+      ?.getMapBoundaries()
+      .then(({ northEast, southWest }) => {
+        const { latitude: lat1, longitude: lng1 } = northEast;
+        const { latitude: lat2, longitude: lng2 } = southWest;
+        return api.search(token, { lat1, lng1, lat2, lng2 });
+      })
+      .then((rooms) => console.log(rooms));
   };
 
   useEffect(() => {

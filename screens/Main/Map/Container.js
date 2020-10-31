@@ -5,6 +5,7 @@ import Presenter from "./Presenter";
 
 export default ({ rooms, token }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [nearBy, setNearBy] = useState([]);
   const mapRef = useRef();
 
   const onScroll = ({ nativeEvent: { contentOffset } }) => {
@@ -21,7 +22,15 @@ export default ({ rooms, token }) => {
         const { latitude: lat2, longitude: lng2 } = southWest;
         return api.search(token, { lat1, lng1, lat2, lng2 });
       })
-      .then((rooms) => console.log(rooms));
+      .then((response) => {
+        const {
+          data: { results },
+        } = response;
+        const resultsExcept = results.filter(
+          (room) => room.id !== rooms[currentIndex].id
+        );
+        setNearBy(resultsExcept);
+      });
   };
 
   useEffect(() => {
@@ -47,6 +56,7 @@ export default ({ rooms, token }) => {
       currentIndex={currentIndex}
       setCurrentIndex={setCurrentIndex}
       onMapMoved={onMapMoved}
+      nearBy={nearBy}
     />
   );
 };

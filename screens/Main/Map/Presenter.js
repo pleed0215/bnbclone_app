@@ -91,16 +91,26 @@ const RoomMarker = ({ selected, price }) => (
   </MarkerWrapper>
 );
 
-const NearByContainer = styled.ScrollView`
+const NearByContainer = styled.View`
   width: ${utils.screenWidth}px;
-  height: 100px;
-  padding: 10px;
+  height: 110px;
+  padding-horizontal: 10px;
+  position: absolute;
+  top: 30px;
+  background-color: rgba(255, 255, 255, 0.5);
 `;
+const NearByScrollView = styled.ScrollView``;
 
-const NearByImage = styled.View`
+const NearByImage = styled.Image`
   width: 80px;
   height: 80px;
   border-radius: 10px;
+  margin-right: 10px;
+`;
+
+const NearByText = styled.Text`
+  font-size: 10px;
+  margin: 5px;
 `;
 
 const Presenter = ({
@@ -147,6 +157,25 @@ const Presenter = ({
           </Marker>
         ))}
       </MapView>
+      {nearBy?.length > 0 && (
+        <NearByContainer>
+          <NearByText>
+            Rooms near by: {utils.plural(nearBy.length, "room")}
+          </NearByText>
+          <NearByScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {nearBy?.map((room) => (
+              <NearByImage
+                key={room.id}
+                source={
+                  room.photos.length > 0
+                    ? { uri: room.photos[0].file }
+                    : utils.defaultImage
+                }
+              />
+            ))}
+          </NearByScrollView>
+        </NearByContainer>
+      )}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -176,19 +205,6 @@ const Presenter = ({
           </RoomContainer>
         ))}
       </ScrollView>
-      {nearBy?.length > 0 && (
-        <NearByContainer horizontal showsHorizontalScrollIndicator={false}>
-          {nearBy?.map((room) => (
-            <NearByImage
-              source={
-                room.photos.length > 0
-                  ? { uri: room.photos[0].file }
-                  : utils.defaultImage
-              }
-            />
-          ))}
-        </NearByContainer>
-      )}
     </Container>
   );
 };

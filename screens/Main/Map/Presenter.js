@@ -91,6 +91,18 @@ const RoomMarker = ({ selected, price }) => (
   </MarkerWrapper>
 );
 
+const NearByContainer = styled.ScrollView`
+  width: ${utils.screenWidth}px;
+  height: 100px;
+  padding: 10px;
+`;
+
+const NearByImage = styled.View`
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+`;
+
 const Presenter = ({
   rooms,
   onScroll,
@@ -98,6 +110,7 @@ const Presenter = ({
   currentIndex,
   setCurrentIndex,
   onMapMoved,
+  nearBy,
 }) => {
   const navigation = useNavigation();
 
@@ -163,6 +176,19 @@ const Presenter = ({
           </RoomContainer>
         ))}
       </ScrollView>
+      {nearBy?.length > 0 && (
+        <NearByContainer horizontal showsHorizontalScrollIndicator={false}>
+          {nearBy?.map((room) => (
+            <NearByImage
+              source={
+                room.photos.length > 0
+                  ? { uri: room.photos[0].file }
+                  : utils.defaultImage
+              }
+            />
+          ))}
+        </NearByContainer>
+      )}
     </Container>
   );
 };

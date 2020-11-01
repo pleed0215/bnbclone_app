@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {ActiveIndicator} from "react-native";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 import { getProfile } from "../../redux/usersSlice";
@@ -11,7 +12,7 @@ const Container = styled.View`
 const Text = styled.Text``;
 
 function mapStateToProps(state) {
-  return { profile: state.profile };
+  return { profile: state.usersReducer.profile };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -19,15 +20,17 @@ function mapDispatchToProps(dispatch) {
 }
 
 const Profile = ({ profile, getProfile }) => {
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (!profile) {
+      setLoading(true);
       getProfile();
+      setLoading(false);
+      console.log(profile);
     }
   }, []);
-  return (
-    <Container>
-      <Text>Profile</Text>
-    </Container>
-  );
+return <Container>{profile && (loading?<ActiveIndicator />:<Text>{profile.username}</Text>)}</Container>
+    
+  
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

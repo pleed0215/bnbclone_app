@@ -22,6 +22,8 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
       state.token = null;
       state.userID = null;
+      state.profile = null;
+      state.favs = [];
     },
     setProfile(state, action) {
       state.profile = action.payload.profile;
@@ -51,6 +53,7 @@ export const getProfile = () => async (dispatch, getState) => {
     } = getState();
     const { data } = await api.getProfile(token);
     dispatch(setProfile({ profile: data }));
+    console.log(getState().usersReducer.profile);
   } catch (e) {
     alert("while getting profile information, an error or erros occured");
     console.error(e);

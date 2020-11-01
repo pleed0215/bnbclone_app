@@ -10,6 +10,7 @@ const userSlice = createSlice({
     token: null,
     userID: null,
     favs: [],
+    profile: null,
   },
   reducers: {
     login(state, action) {
@@ -22,11 +23,14 @@ const userSlice = createSlice({
       state.token = null;
       state.userID = null;
     },
+    setProfile(state, action) {
+      state.profile = action.payload.profile;
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { login, logout } = actions;
+export const { login, logout, setProfile } = actions;
 export const apiLogin = (form) => async (dispatch) => {
   try {
     const {
@@ -37,6 +41,19 @@ export const apiLogin = (form) => async (dispatch) => {
   } catch (e) {
     console.log(e);
     alert("Wrong user/password");
+  }
+};
+
+export const getProfile = () => async (dispatch, getState) => {
+  try {
+    const {
+      usersReducer: { token },
+    } = getState();
+    const { data } = await api.getProfile(token);
+    dispatch(setProfile({ profile: data }));
+  } catch (e) {
+    alert("while getting profile information, an error or erros occured");
+    console.error(e);
   }
 };
 

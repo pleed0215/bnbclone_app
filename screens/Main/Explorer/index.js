@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getRooms, increasePage } from "../../../redux/roomSlice";
-import { toggleFavs } from "../../../redux/usersSlice";
 import ModuleContainer from "./Container";
 
 function mapDispatchToProps(dispatch) {

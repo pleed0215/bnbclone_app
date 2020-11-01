@@ -3,7 +3,7 @@ import api from "../../../api";
 import utils from "../../../utils";
 import Presenter from "./Presenter";
 
-export default ({ rooms, token }) => {
+export default ({ rooms, token, navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nearBy, setNearBy] = useState([]);
   const mapRef = useRef();
@@ -33,6 +33,8 @@ export default ({ rooms, token }) => {
       });
   };
 
+  const onNearByClicked = (room) => navigation.navigate("RoomDetail", { room });
+
   useEffect(() => {
     mapRef?.current?.animateCamera(
       {
@@ -57,6 +59,7 @@ export default ({ rooms, token }) => {
       setCurrentIndex={setCurrentIndex}
       onMapMoved={onMapMoved}
       nearBy={nearBy}
+      onNearByClicked={onNearByClicked}
     />
   );
 };

@@ -53,4 +53,5 @@ export default {
   search: (jwt, form) => callApi("get", ROOMS_ROUTE.search, form, jwt),
   callApi: (method, path, data, jwt, url) =>
     callApi(method, path, data, jwt, url),
+  getProfile: (jwt) => callApi("get", USERS_ROUTES.me, null, jwt),
 };

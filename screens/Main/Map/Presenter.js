@@ -118,9 +118,9 @@ const Presenter = ({
   onScroll,
   mapRef,
   currentIndex,
-  setCurrentIndex,
   onMapMoved,
   nearBy,
+  onNearByClicked,
 }) => {
   const navigation = useNavigation();
 
@@ -164,14 +164,18 @@ const Presenter = ({
           </NearByText>
           <NearByScrollView horizontal showsHorizontalScrollIndicator={false}>
             {nearBy?.map((room) => (
-              <NearByImage
+              <TouchableOpacity
                 key={room.id}
-                source={
-                  room.photos.length > 0
-                    ? { uri: room.photos[0].file }
-                    : utils.defaultImage
-                }
-              />
+                onPress={() => onNearByClicked(room)}
+              >
+                <NearByImage
+                  source={
+                    room.photos.length > 0
+                      ? { uri: room.photos[0].file }
+                      : utils.defaultImage
+                  }
+                />
+              </TouchableOpacity>
             ))}
           </NearByScrollView>
         </NearByContainer>

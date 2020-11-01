@@ -27,14 +27,12 @@ const ContainerImage = styled.ImageBackground`
   padding: 10px 20px;
 `;
 
-const Text = styled.Text``;
-
 const ProfileContainer = styled.View`
   position: absolute;
   top: 150px;
   background-color: rgba(255, 255, 255, 0.9);
   width: 100%;
-  height: 300px;
+  height: 200px;
   align-items: center;
   border-radius: 10px;
 `;
@@ -61,6 +59,22 @@ const AvatarImage = styled.Image`
   height: 150px;
 `;
 
+const NameContainer = styled.View`
+  align-items: center;
+  margin-top: 70px;
+`;
+
+const NameText = styled.Text`
+  font-size: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+`;
+
+const UsernameText = styled.Text`
+  font-size: 12px;
+  font-weight: 600;
+`;
 function mapStateToProps(state) {
   return { profile: state.usersReducer.profile };
 }
@@ -91,6 +105,10 @@ const Profile = ({ profile, getProfile }) => {
                   <AvatarInitial>{profile.username.slice(0, 2)}</AvatarInitial>
                 )}
               </AvatarContainer>
+              <NameContainer>
+                <NameText>{`${profile.first_name} ${profile.last_name}`}</NameText>
+                <UsernameText>{profile.username}</UsernameText>
+              </NameContainer>
             </ProfileContainer>
           ))}
       </ContainerImage>
